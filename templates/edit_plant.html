@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Plant</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    rgba(244, 250, 245, 0.75),
+                    rgba(244, 250, 245, 0.75)
+                ),
+                url("{{ url_for('static', filename='images/bg.jpg') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 70px;
+            background: #0a1f0b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            color: white;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #66bb6a;
+        }
+
+        .logout-btn {
+            background: #2e7d32;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 7px;
+        }
+
+        .logout-btn:hover {
+            background: #1b5e20;
+        }
+
+        /* MAIN */
+        .container {
+            width: 86%;
+            max-width: 750px;
+            margin: 50px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* EDIT CARD */
+        .edit-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d6e5d8;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .form-group textarea:focus {
+            border-color: #2e7d32;
+        }
+
+        /* READ ONLY */
+        .form-group input[readonly] {
+            background: #f1f3f1;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .form-info {
+            color: #888;
+            font-size: 12px;
+            margin-top: 7px;
+        }
+
+        /* BUTTONS */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .save-btn {
+            border: none;
+            background: #2e7d32;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .save-btn:hover {
+            background: #1b5e20;
+        }
+
+        .cancel-btn {
+            background: #eeeeee;
+            color: #444;
+            padding: 12px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .cancel-btn:hover {
+            background: #dddddd;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">
+        Plant Health Detection
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('admin_dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('admin_plants') }}">
+            Manage Plants
+        </a>
+
+        <a href="{{ url_for('admin_logout') }}" class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+<div class="container">
+
+    <div class="page-title">
+        <h1>Edit Plant</h1>
+        <p>Update plant information supported by the detection system.</p>
+    </div>
+
+
+    <div class="edit-card">
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label>Plant Name</label>
+
+                <input
+                    type="text"
+                    value="{{ plant.plant_name }}"
+                    readonly
+                >
+
+                <p class="form-info">
+                    Plant name cannot be changed.
+                </p>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    name="description"
+                    required>{{ plant.description }}</textarea>
+
+            </div>
+
+
+            <div class="button-group">
+
+                <button type="submit" class="save-btn">
+                    Save Changes
+                </button>
+
+                <a href="{{ url_for('admin_plants') }}"
+                   class="cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reports</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    rgba(244, 250, 245, 0.75),
+                    rgba(244, 250, 245, 0.75)
+                ),
+             url("{{ url_for('static', filename='images/bg.jpg') }}");
+
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+
+                min-height: 100vh;
+            }
+
+        /* NAVBAR */
+        .navbar {
+            height: 70px;
+            background: #0a1f0b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            color: white;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: #66bb6a;
+        }
+
+        .logout-btn {
+            background: #2e7d32;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 7px;
+        }
+
+        .logout-btn:hover {
+            background: #1b5e20;
+        }
+
+        /* MAIN */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* CARD */
+        .report-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        /* MESSAGE */
+        .message {
+            background: #e8f5e9;
+            color: #1b5e20;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* TABLE */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #e8f5e9;
+            color: #1b5e20;
+            text-align: left;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eeeeee;
+            color: #444;
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #fafdfa;
+        }
+
+        .plant-name {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .healthy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .unhealthy {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .confidence {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .delete-btn {
+            border: none;
+            background: #c62828;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .delete-btn:hover {
+            background: #8e0000;
+        }
+
+        .no-report {
+            text-align: center;
+            padding: 35px;
+            color: #888;
+        }
+
+        .report-image {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #d6e5d8;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">
+        Plant Health Detection
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('admin_dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('admin_logout') }}" class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+<div class="container">
+
+    <div class="page-title">
+        <h1>All Plant Reports</h1>
+        <p>View and manage plant health analysis records from all users.</p>
+    </div>
+
+
+    <div class="report-card">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Plant</th>
+                        <th>Health Status</th>
+                        <th>Disease</th>
+                        <th>Confidence</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for report in reports %}
+
+                    <tr>
+
+                        <td>
+                            {% if report.image_path %}
+                                <img
+                                    src="{{ url_for('static', filename='uploads/' + report.image_path) }}"
+                                    alt="Plant Leaf"
+                                    class="report-image">
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ report.classification_date }}
+                        </td>
+
+                        <td>
+                            {{ report.user_name }}
+                        </td>
+
+                        <td class="plant-name">
+                            {{ report.plant_name }}
+                        </td>
+
+                        <td>
+
+                            {% if report.health_status == "Healthy" %}
+
+                                <span class="status healthy">
+                                    Healthy
+                                </span>
+
+                            {% else %}
+
+                                <span class="status unhealthy">
+                                    Unhealthy
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ report.disease_name }}
+                        </td>
+
+                        <td class="confidence">
+                            {{ "%.2f"|format(report.confidence) }}%
+                        </td>
+
+                        <td>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('delete_report', classification_id=report.classification_id) }}"
+                                onsubmit="return confirm('Delete this report?');"
+                            >
+
+                                <button type="submit" class="delete-btn">
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="8" class="no-report">
+                            No reports found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

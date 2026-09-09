@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reports</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    rgba(244, 250, 245, 0.75),
+                    rgba(244, 250, 245, 0.75)
+                ),
+             url("{{ url_for('static', filename='images/bg.jpg') }}");
+
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+
+                min-height: 100vh;
+            }
+
+        /* NAVBAR */
+        .navbar {
+            height: 70px;
+            background: #0a1f0b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            color: #f6f9f6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #f6f9f6;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #2e7d32;
+        }
+
+        .logout-btn {
+            background: #2e7d32;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 7px;
+        }
+
+        .logout-btn:hover {
+            background: #1b5e20;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            width: 86%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* REPORT CARD */
+        .report-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        /* SEARCH */
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #d6e5d8;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-form input:focus {
+            border-color: #2e7d32;
+        }
+
+        .search-btn {
+            border: none;
+            background: #2e7d32;
+            color: white;
+            padding: 11px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .search-btn:hover {
+            background: #1b5e20;
+        }
+
+        .reset-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            background: #eeeeee;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .reset-btn:hover {
+            background: #dddddd;
+        }
+
+        /* TABLE */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #e8f5e9;
+            color: #1b5e20;
+            text-align: left;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eeeeee;
+            color: #444;
+            font-size: 14px;
+        }
+
+        tr:hover td {
+            background: #fafdfa;
+        }
+
+        /* HEALTH STATUS */
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .healthy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .unhealthy {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .confidence {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .no-report {
+            text-align: center;
+            padding: 35px;
+            color: #888;
+        }
+
+        .report-image {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #d6e5d8;
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">
+        Plant Health Detection
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('detect') }}">
+            Plant Detection
+        </a>
+
+        <a href="{{ url_for('reports') }}" class="active">
+            View Reports
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+<div class="container">
+
+    <div class="page-title">
+        <h1>My Plant Reports</h1>
+        <p>View and search your saved plant health analysis results.</p>
+    </div>
+
+
+    <div class="report-card">
+
+        <!-- SEARCH -->
+        <form method="GET"
+              action="{{ url_for('reports') }}"
+              class="search-form">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search plant, status or disease..."
+                value="{{ search }}"
+            >
+
+            <button type="submit" class="search-btn">
+                Search
+            </button>
+
+            <a href="{{ url_for('reports') }}" class="reset-btn">
+                Reset
+            </a>
+
+        </form>
+
+
+        <!-- REPORT TABLE -->
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Date</th>
+                        <th>Plant</th>
+                        <th>Health Status</th>
+                        <th>Disease</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for report in reports %}
+
+                    <tr>
+
+                        <td>
+                            {% if report.image_path %}
+                                <img
+                                    src="{{ url_for('static', filename='uploads/' + report.image_path) }}"
+                                    alt="Plant Leaf"
+                                    class="report-image">
+                            {% else %}
+        -
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ report.classification_date }}
+                        </td>
+
+                        <td>
+                            <strong>{{ report.plant_name }}</strong>
+                        </td>
+
+                        <td>
+
+                            {% if report.health_status == "Healthy" %}
+
+                                <span class="status healthy">
+                                    Healthy
+                                </span>
+
+                            {% else %}
+
+                                <span class="status unhealthy">
+                                    Unhealthy
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ report.disease_name }}
+                        </td>
+
+                        <td class="confidence">
+                            {{ "%.2f"|format(report.confidence) }}%
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="6" class="no-report">
+                            No reports found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

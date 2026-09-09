@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    rgba(244, 250, 245, 0.72),
+                    rgba(244, 250, 245, 0.72)
+                ),
+                url("{{ url_for('static', filename='images/bg.jpg') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            min-height: 100vh;
+        }
+
+        .navbar {
+            height: 70px;
+            background: #0a1f0b;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .main {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .login-card {
+            background: white;
+            width: 420px;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-icon {
+            font-size: 46px;
+            margin-bottom: 10px;
+        }
+
+        .header h2 {
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d6e5d8;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2e7d32;
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            padding: 13px;
+            background: #2e7d32;
+            color: white;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #1b5e20;
+        }
+
+        .message {
+            background: #fff3cd;
+            color: #664d03;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .links a {
+            color: #2e7d32;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        Plant Health Detection
+    </div>
+</div>
+
+<div class="main">
+
+    <div class="login-card">
+
+        <div class="header">
+            <div class="admin-icon"></div>
+
+            <h2>Admin Login</h2>
+
+            <p>
+                Login to manage the Plant Health Detection System.
+            </p>
+        </div>
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+
+        <form method="POST" action="{{ url_for('admin_login') }}">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter admin email"
+                required
+            >
+
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter admin password"
+                required
+            >
+
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+
+        </form>
+
+
+        <div class="links">
+            Return to
+            <a href="{{ url_for('login') }}">
+                User Login
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

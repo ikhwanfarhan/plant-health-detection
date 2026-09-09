@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Detection</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background:
+                linear-gradient(
+                    rgba(244, 250, 245, 0.75),
+                    rgba(244, 250, 245, 0.75)
+                ),
+             url("{{ url_for('static', filename='images/bg.jpg') }}");
+
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+
+                min-height: 100vh;
+            }
+
+        .navbar {
+            height: 70px;
+            background:#0a1f0b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            color: #f6f9f6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #f6f9f6;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #2e7d32;
+        }
+
+        .logout-btn {
+            background: #2e7d32;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 7px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: white;
+            width: 380px;
+            padding: 35px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+        }
+
+        .modal-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .modal-box h2 {
+            color: #1b5e20;
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .cancel-btn,
+        .confirm-btn {
+            padding: 11px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cancel-btn {
+            border: none;
+            background: #eeeeee;
+            color: #444;
+        }
+
+        .cancel-btn:hover {
+            background: #dddddd;
+        }
+
+        .confirm-btn {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background: #1b5e20;
+        }
+
+        .container {
+            width: 86%;
+            max-width: 950px;
+            margin: 50px auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-title h1 {
+            color: #1b5e20;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+        }
+
+        .upload-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .upload-box {
+            border: 2px dashed #a5d6a7;
+            padding: 45px 20px;
+            border-radius: 12px;
+            background: #f8fcf8;
+        }
+
+        .upload-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .file-upload {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .choose-btn {
+            background: #2e7d32;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .choose-btn:hover {
+            background: #1b5e20;
+        }
+
+        #fileName {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .file-upload input[type="file"] {
+            width: auto;
+            max-width: 100%;
+        }
+
+        .btn {
+            border: none;
+            background: #2e7d32;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #1b5e20;
+        }
+
+        .upload-info {
+            margin-top: 12px;
+            margin-bottom: 5px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .supported-plants {
+            color: #555;
+        }
+
+        .supported-plants strong {
+            color: #2e7d32;
+        }
+
+        .file-info {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .result-card h2 {
+            color: #1b5e20;
+            margin-bottom: 25px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 13px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .result-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0 30px;
+        }
+
+        .result-image img {
+            width: 220px;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #e0eee1;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .value {
+            color: #222;
+        }
+
+        .save-btn {
+            margin-top: 25px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+         Plant Health Detection
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('detect') }}" class="active">
+        Plant Detection
+        </a>
+
+        <a href="{{ url_for('reports') }}">
+            View Reports
+        </a>
+
+        <a href="#" class="logout-btn" onclick="openLogoutModal(); return false;">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="page-title">
+        <h1>Plant Health Detection</h1>
+        <p>Upload a plant leaf image to analyze its health condition.</p>
+    </div>
+
+    <div class="upload-card">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <div class="upload-box">
+
+                <div class="upload-icon"></div>
+
+                <h3>Upload Plant Leaf Image</h3>
+
+                <div class="upload-info">
+                    <p>Select a clear image of a plant leaf for health analysis.</p>
+
+                    <p class="supported-plants">
+                    Supported Plants:
+                    <strong>Tomato, Potato & Pepper Bell</strong>
+                    </p>
+
+                    <p class="file-info">
+                    Supported formats: JPG, JPEG, PNG
+                    </p>
+                </div>
+
+                <div class="file-upload">
+
+                    <input
+                        type="file"
+                        id="plantImage"
+                        name="image"
+                        accept="image/*"
+                        required
+                        hidden>
+
+                    <label for="plantImage" class="choose-btn">
+                        Choose Image
+                    </label>
+
+                    <span id="fileName">No file chosen</span>
+
+                </div>
+
+                <br>
+
+                <button type="submit" class="btn">
+                    Detect Plant
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    {% if plant_name %}
+
+    <div class="result-card">
+
+        <h2>Analysis Result</h2>
+
+        {% if image_filename %}
+
+    <div class="result-image">
+        <img
+            src="{{ url_for('static', filename='uploads/' + image_filename) }}"
+            alt="Uploaded Plant Leaf">
+    </div>
+
+{% endif %}
+
+        <div class="result-row">
+            <span class="label">Plant Name</span>
+            <span class="value">{{ plant_name }}</span>
+        </div>
+
+        <div class="result-row">
+            <span class="label">Health Status</span>
+            <span class="value">{{ health_status }}</span>
+        </div>
+
+        <div class="result-row">
+            <span class="label">Disease</span>
+            <span class="value">{{ disease_name }}</span>
+        </div>
+
+        <div class="result-row">
+            <span class="label">Confidence</span>
+            <span class="value">{{ confidence }}%</span>
+        </div>
+
+        {% if classification_id %}
+
+        <form method="POST"
+              action="{{ url_for('save_report', classification_id=classification_id) }}">
+
+            <button type="submit" class="btn save-btn">
+                Save Result
+            </button>
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<div id="logoutModal" class="modal">
+    <div class="modal-box">
+
+        <div class="modal-icon">⚠️</div>
+
+        <h2>Confirm Logout</h2>
+
+        <p>Are you sure you want to logout?</p>
+
+        <div class="modal-buttons">
+
+            <button type="button"
+                    class="cancel-btn"
+                    onclick="closeLogoutModal()">
+                Cancel
+            </button>
+
+            <a href="{{ url_for('logout') }}" class="confirm-btn">
+                Confirm
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const plantImage = document.getElementById("plantImage");
+    const fileName = document.getElementById("fileName");
+
+    plantImage.addEventListener("change", function () {
+        if (this.files.length > 0) {
+            fileName.textContent = this.files[0].name;
+        } else {
+            fileName.textContent = "No file chosen";
+        }
+    });
+
+    function openLogoutModal() {
+        document.getElementById("logoutModal").style.display = "flex";
+    }
+
+    function closeLogoutModal() {
+        document.getElementById("logoutModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("logoutModal");
+
+        if (event.target === modal) {
+            closeLogoutModal();
+        }
+    };
+</script>
+</body>
+</html>
