@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Admin Dashboard</title>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,265 +22,610 @@
             font-family: Arial, sans-serif;
         }
 
-        body {
-            background:
-                linear-gradient(
-                    rgba(244, 250, 245, 0.82),
-                    rgba(244, 250, 245, 0.82)
-                ),
-                url("{{ url_for('static', filename='images/bg.jpg') }}");
 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+        /* =================================
+           BODY
+        ================================= */
+
+        body {
 
             min-height: 100vh;
+
+            background: #071F12;
+
+            color: white;
         }
 
-        /* NAVBAR */
+
+        /* =================================
+           NAVBAR
+        ================================= */
+
         .navbar {
+
             height: 70px;
-            background: #0a1f0b;
+
+            background: #05170D;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             padding: 0 7%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.25);
         }
+
+
+        /* LOGO */
 
         .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
             color: white;
+
             font-size: 21px;
+
             font-weight: bold;
         }
 
+
+        .logo i {
+
+            font-size: 30px;
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           NAV LINKS
+        ================================= */
+
         .nav-links {
+
             display: flex;
+
             gap: 28px;
+
             align-items: center;
         }
+
 
         .nav-links a {
+
             text-decoration: none;
+
             color: white;
+
             font-size: 14px;
+
             font-weight: 600;
-        }
 
-        .nav-links a:hover,
-        .nav-links .active {
-            color: #66bb6a;
-        }
-
-        .logout-btn {
-            background: #2e7d32;
-            padding: 10px 18px;
-            border-radius: 7px;
-            color: white !important;
-        }
-
-        .logout-btn:hover {
-            background: #1b5e20;
-        }
-
-        /* LOGOUT MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.45);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-box {
-            background: white;
-            width: 380px;
-            padding: 35px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
-        }
-
-        .modal-icon {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-
-        .modal-box h2 {
-            color: #1b5e20;
-            margin-bottom: 10px;
-        }
-
-        .modal-box p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .cancel-btn,
-        .confirm-btn {
-            padding: 11px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-
-        .cancel-btn {
-            border: none;
-            background: #eeeeee;
-            color: #444;
-        }
-
-        .cancel-btn:hover {
-            background: #dddddd;
-        }
-
-        .confirm-btn {
-            background: #2e7d32;
-            color: white;
-        }
-
-        .confirm-btn:hover {
-            background: #1b5e20;
-        }
-
-        /* MAIN CONTENT */
-        .container {
-            width: 86%;
-            max-width: 1000px;
-            margin: 55px auto;
-        }
-
-        .page-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .page-title h1 {
-            color: #1b5e20;
-            font-size: 34px;
-            margin-bottom: 10px;
-        }
-
-        .page-title p {
-            color: #666;
-            font-size: 15px;
-        }
-
-        /* WELCOME CARD */
-        .welcome-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .welcome-card h2 {
-            color: #1b5e20;
-            margin-bottom: 8px;
-        }
-
-        .welcome-card p {
-            color: #777;
-            font-size: 14px;
-        }
-
-        /* ADMIN MENU */
-        .menu-card {
-            background: white;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-        }
-
-        .menu-card h2 {
-            color: #1b5e20;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-        }
-
-        .menu-item {
-            background: #f8fcf8;
-            border: 1px solid #d6ead8;
-            border-radius: 12px;
-            padding: 35px 20px;
-            text-align: center;
-            text-decoration: none;
             transition: 0.2s;
         }
 
-        .menu-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border-color: #81c784;
+
+        .nav-links a:hover,
+
+        .nav-links .active {
+
+            color: #7BE36B;
         }
 
-        .menu-icon {
-            font-size: 38px;
-            margin-bottom: 15px;
+
+        /* =================================
+           LOGOUT BUTTON
+        ================================= */
+
+        .logout-btn {
+
+            background: #4CAF50;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            color: white !important;
+
+            transition: 0.2s;
         }
 
-        .menu-item h3 {
-            color: #1b5e20;
+
+        .logout-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           LOGOUT MODAL
+        ================================= */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 9999;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .modal-box {
+
+            background: white;
+
+            width: 450px;
+
+            max-width: 90%;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.30);
+        }
+
+
+        /* LOGOUT ICON */
+
+        .modal-icon {
+
+            width: 64px;
+
+            height: 64px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .modal-icon i {
+
+            font-size: 30px;
+
+            color: #4CAF50;
+        }
+
+
+        /* MODAL TITLE */
+
+        .modal-box h2 {
+
+            color: #222;
+
+            font-size: 26px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* MODAL TEXT */
+
+        .modal-box p {
+
+            color: #777;
+
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* BUTTONS */
+
+        .modal-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+
+        .cancel-btn,
+
+        .confirm-btn {
+
+            width: 100px;
+
+            padding: 12px 10px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+
+        /* CANCEL */
+
+        .cancel-btn {
+
+            background: #EEEEEE;
+
+            color: #444;
+        }
+
+
+        .cancel-btn:hover {
+
+            background: #DDDDDD;
+        }
+
+
+        /* LOGOUT */
+
+        .confirm-btn {
+
+            background: #4CAF50;
+
+            color: white;
+        }
+
+
+        .confirm-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           MAIN CONTENT
+        ================================= */
+
+        .container {
+
+            width: 86%;
+
+            max-width: 1000px;
+
+            margin: 55px auto;
+        }
+
+
+        /* =================================
+           PAGE TITLE
+        ================================= */
+
+        .page-title {
+
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+
+        .page-title h1 {
+
+            color: #7BE36B;
+
+            font-size: 34px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .page-title p {
+
+            color: #D7E5DA;
+
+            font-size: 15px;
+        }
+
+
+        /* =================================
+           WELCOME CARD
+        ================================= */
+
+        .welcome-card {
+
+            background: #FFFFFF;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.25);
+
+            margin-bottom: 25px;
+
+            text-align: center;
+        }
+
+
+        .welcome-card h2 {
+
+            color: #222;
+
             margin-bottom: 8px;
         }
 
+
+        .welcome-card p {
+
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           ADMIN MENU
+        ================================= */
+
+        .menu-card {
+
+            background: #FFFFFF;
+
+            padding: 35px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .menu-card h2 {
+
+            color: #222;
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .menu-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* =================================
+           MENU ITEM
+        ================================= */
+
+        .menu-item {
+
+            background: #F4FAF5;
+
+            border: 1px solid #D6EAD8;
+
+            border-radius: 12px;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            transition: 0.2s;
+        }
+
+
+        .menu-item:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 8px 20px rgba(0, 0, 0, 0.10);
+
+            border-color: #7BE36B;
+        }
+
+
+        .menu-icon {
+
+            font-size: 38px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .menu-item h3 {
+
+            color: #2E7D32;
+
+            margin-bottom: 8px;
+        }
+
+
         .menu-item p {
-            color: #777;
+
+            color: #666;
+
             font-size: 13px;
+
             line-height: 1.5;
         }
 
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
         @media (max-width: 700px) {
+
             .menu-grid {
+
                 grid-template-columns: 1fr;
             }
 
+
             .nav-links {
+
                 gap: 12px;
             }
+
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .logo i {
+
+                font-size: 25px;
+            }
+
+
+            .container {
+
+                width: 90%;
+
+                margin: 35px auto;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 28px;
+            }
+
+
+            .modal-box {
+
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+
+            .modal-box h2 {
+
+                font-size: 24px;
+            }
+
+
+            .modal-box p {
+
+                font-size: 14px;
+            }
+
+
+            .cancel-btn,
+
+            .confirm-btn {
+
+                width: 100px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- NAVBAR -->
+
+    <!-- =================================
+         NAVBAR
+    ================================= -->
+
     <div class="navbar">
 
+
+        <!-- LOGO -->
+
         <div class="logo">
-            Plant Health Detection
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
         </div>
+
+
+
+        <!-- NAVIGATION -->
 
         <div class="nav-links">
 
-            <a href="{{ url_for('admin_dashboard') }}" class="active">
+            <a href="{{ url_for('admin_dashboard') }}"
+               class="active">
+
                 Dashboard
+
             </a>
 
-            <a href="#" class="logout-btn" onclick="openLogoutModal(); return false;">
-            Logout
+
+            <a href="{{ url_for('admin_plants') }}">
+
+                Manage Plants
+
+            </a>
+
+
+            <a href="{{ url_for('admin_reports') }}">
+
+                View Reports
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a href="#"
+               class="logout-btn"
+               onclick="openLogoutModal(); return false;">
+
+                Logout
+
             </a>
 
         </div>
@@ -279,58 +633,120 @@
     </div>
 
 
-    <!-- MAIN -->
+
+    <!-- =================================
+         MAIN CONTENT
+    ================================= -->
+
     <div class="container">
 
+
+        <!-- PAGE TITLE -->
+
         <div class="page-title">
-            <h1>Admin Dashboard</h1>
-            <p>Manage plant information and view plant health analysis reports.</p>
-        </div>
 
+            <h1>
 
-        <div class="welcome-card">
+                Admin Dashboard
 
-            <h2>Welcome, {{ admin_name }}</h2>
+            </h1>
 
             <p>
-                Manage and monitor the Plant Health Detection System.
+
+                Manage plant information and view plant health analysis reports.
+
             </p>
 
         </div>
 
 
+
+        <!-- WELCOME -->
+
+        <div class="welcome-card">
+
+            <h2>
+
+                Welcome, {{ admin_name }}
+
+            </h2>
+
+            <p>
+
+                Manage and monitor the Plant Health Detection System.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ADMIN MENU -->
+
         <div class="menu-card">
 
-            <h2>Admin Menu</h2>
+            <h2>
+
+                Admin Menu
+
+            </h2>
+
 
             <div class="menu-grid">
 
+
                 <!-- MANAGE PLANTS -->
-                <a href="{{ url_for('admin_plants') }}" class="menu-item">
 
-                    <div class="menu-icon">🌱</div>
+                <a href="{{ url_for('admin_plants') }}"
+                   class="menu-item">
 
-                    <h3>Manage Plants</h3>
+                    <div class="menu-icon">
+
+                        🌱
+
+                    </div>
+
+                    <h3>
+
+                        Manage Plants
+
+                    </h3>
 
                     <p>
+
                         View and manage plant information supported by the system.
+
                     </p>
 
                 </a>
+
 
 
                 <!-- VIEW REPORTS -->
-                <a href="{{ url_for('admin_reports') }}" class="menu-item">
 
-                    <div class="menu-icon">📋</div>
+                <a href="{{ url_for('admin_reports') }}"
+                   class="menu-item">
 
-                    <h3>View Reports</h3>
+                    <div class="menu-icon">
+
+                        📋
+
+                    </div>
+
+                    <h3>
+
+                        View Reports
+
+                    </h3>
 
                     <p>
+
                         View plant health detection and classification records.
+
                     </p>
 
                 </a>
+
 
             </div>
 
@@ -338,53 +754,119 @@
 
     </div>
 
+
+
+    <!-- =================================
+         LOGOUT CONFIRMATION MODAL
+    ================================= -->
+
     <div id="logoutModal" class="modal">
 
-    <div class="modal-box">
 
-        <div class="modal-icon">⚠️</div>
+        <div class="modal-box">
 
-        <h2>Confirm Logout</h2>
 
-        <p>Are you sure you want to logout?</p>
+            <!-- LOGOUT ICON -->
 
-        <div class="modal-buttons">
+            <div class="modal-icon">
 
-            <button
-                type="button"
-                class="cancel-btn"
-                onclick="closeLogoutModal()">
-                Cancel
-            </button>
+                <i class="fa-solid fa-right-from-bracket"></i>
 
-            <a href="{{ url_for('admin_logout') }}"
-               class="confirm-btn">
-                Confirm
-            </a>
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2>
+
+                Logout Confirmation
+
+            </h2>
+
+
+            <!-- MESSAGE -->
+
+            <p>
+
+                Are you sure you want to logout?
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <!-- CANCEL -->
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeLogoutModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <!-- LOGOUT -->
+
+                <a
+                    href="{{ url_for('admin_logout') }}"
+                    class="confirm-btn">
+
+                    Logout
+
+                </a>
+
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
-<script>
-    function openLogoutModal() {
-        document.getElementById("logoutModal").style.display = "flex";
-    }
 
-    function closeLogoutModal() {
-        document.getElementById("logoutModal").style.display = "none";
-    }
+    <!-- =================================
+         JAVASCRIPT
+    ================================= -->
 
-    window.onclick = function(event) {
-        const modal = document.getElementById("logoutModal");
+    <script>
 
-        if (event.target === modal) {
-            closeLogoutModal();
+        function openLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "flex";
+
         }
-    };
-</script>
+
+
+        function closeLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "none";
+
+        }
+
+
+        /* CLOSE WHEN CLICK OUTSIDE */
+
+        window.onclick = function(event) {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+            if (event.target === modal) {
+
+                closeLogoutModal();
+
+            }
+
+        };
+
+    </script>
+
 
 </body>
+
 </html>
