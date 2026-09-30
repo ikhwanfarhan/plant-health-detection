@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Plant Health Detection System</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            min-height: 100vh;
+
+            background: #071F12;
+
+            color: white;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 70px;
+
+            background: #05170D;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.30);
+
+            border-bottom:
+                1px solid rgba(123, 227, 107, 0.08);
+        }
+
+
+        .logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            color: #ffffff;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .logo i {
+            font-size: 28px;
+
+            color: #7BE36B;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 30px;
+        }
+
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #7BE36B;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height:
+                calc(100vh - 70px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            padding: 40px 20px 80px;
+        }
+
+
+        .hero-content {
+            max-width: 1050px;
+
+            margin-top: -20px;
+        }
+
+
+        .hero h1 {
+            font-size: 82px;
+
+            line-height: 1.05;
+
+            font-weight: 700;
+
+            color: white;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 0;
+        }
+
+
+        .hero h2 {
+            font-size: 82px;
+
+            line-height: 1.05;
+
+            font-weight: 700;
+
+            color: #7BE36B;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .hero-description {
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            color: #aebdb1;
+
+            font-size: 25px;
+
+            line-height: 1.45;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .hero-button {
+            margin-top: 52px;
+        }
+
+
+        .get-started-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            min-width: 250px;
+
+            padding: 16px 30px;
+
+            background: #7BE36B;
+
+            color: #071F12;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            transition: 0.25s;
+        }
+
+
+        .get-started-btn i {
+            font-size: 17px;
+
+            transition: 0.25s;
+        }
+
+
+        .get-started-btn:hover {
+            background: #63cf58;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .get-started-btn:hover i {
+            transform:
+                translateX(5px);
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero h1,
+            .hero h2 {
+                font-size: 60px;
+            }
+
+
+            .hero-description {
+                font-size: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: 70px;
+
+                padding: 0 5%;
+            }
+
+
+            .logo {
+                font-size: 17px;
+            }
+
+
+            .logo i {
+                font-size: 22px;
+            }
+
+
+            .nav-links {
+                gap: 18px;
+            }
+
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+
+            .hero {
+                min-height:
+                    calc(100vh - 70px);
+
+                padding:
+                    30px 20px 60px;
+            }
+
+
+            .hero-content {
+                margin-top: -10px;
+            }
+
+
+            .hero h1,
+            .hero h2 {
+                font-size: 43px;
+
+                letter-spacing: -1px;
+            }
+
+
+            .hero-description {
+                font-size: 17px;
+
+                line-height: 1.5;
+            }
+
+
+            .hero-button {
+                margin-top: 38px;
+            }
+
+
+            .get-started-btn {
+                min-width: 210px;
+
+                padding:
+                    14px 25px;
+
+                font-size: 17px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <div class="navbar">
+
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}"
+               class="active">
+
+                Home
+
+            </a>
+
+
+            <a href="{{ url_for('about') }}">
+
+                About
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+
+            <h1>
+                Detect Plant Diseases
+            </h1>
+
+
+            <h2>
+                Instantly with AI
+            </h2>
+
+
+            <p class="hero-description">
+
+                Upload a photo of your plant's leaf and get instant
+                results. Our AI-powered system identifies plant health
+                conditions quickly and efficiently.
+
+            </p>
+
+
+            <div class="hero-button">
+
+
+                <a href="{{ url_for('login') }}"
+                   class="get-started-btn">
+
+                    Get Started
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</body>
+
+</html>

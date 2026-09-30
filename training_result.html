@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Training Result</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            background:
+                linear-gradient(
+                    rgba(244, 250, 245, 0.78),
+                    rgba(244, 250, 245, 0.78)
+                ),
+                url("{{ url_for('static', filename='images/bg.jpg') }}");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 70px;
+
+            background: #0a1f0b;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 7%;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .logo i {
+            font-size: 30px;
+
+            color: white;
+        }
+
+
+        /* NAV LINKS */
+
+        .nav-links {
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+        }
+
+
+        .nav-links a {
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .nav-links a:hover {
+            color: #66bb6a;
+        }
+
+
+        /* LOGOUT */
+
+        .logout-btn {
+            background: #2e7d32;
+
+            color: white !important;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+        }
+
+
+        .logout-btn:hover {
+            background: #1b5e20;
+        }
+
+
+        /* =========================
+           LOGOUT MODAL
+        ========================= */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+
+            z-index: 9999;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.45);
+
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .modal-box {
+            background: white;
+
+            width: 450px;
+
+            max-width: 90%;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+        }
+
+
+        /* ICON */
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #e8f5e9;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .modal-icon i {
+            font-size: 30px;
+
+            color: #2e7d32;
+        }
+
+
+        /* TITLE */
+
+        .modal-box h2 {
+            color: #1b5e20;
+
+            font-size: 26px;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* TEXT */
+
+        .modal-box p {
+            color: #777;
+
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* BUTTONS */
+
+        .modal-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+
+        .cancel-modal-btn,
+        .confirm-btn {
+            width: 100px;
+
+            padding: 12px 10px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+
+        .cancel-modal-btn {
+            background: #eeeeee;
+
+            color: #444;
+        }
+
+
+        .cancel-modal-btn:hover {
+            background: #dddddd;
+        }
+
+
+        .confirm-btn {
+            background: #2e7d32;
+
+            color: white;
+        }
+
+
+        .confirm-btn:hover {
+            background: #1b5e20;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 86%;
+
+            max-width: 950px;
+
+            margin: 50px auto;
+        }
+
+
+        /* =========================
+           PAGE TITLE
+        ========================= */
+
+        .page-title {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+            color: #1b5e20;
+
+            font-size: 34px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-title p {
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           SUCCESS MESSAGE
+        ========================= */
+
+        .success-box {
+            background: #e8f5e9;
+
+            border: 1px solid #b7dcb9;
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .success-icon {
+            width: 48px;
+            height: 48px;
+
+            margin: 0 auto 10px;
+
+            background: #2e7d32;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .success-icon i {
+            color: white;
+
+            font-size: 23px;
+        }
+
+
+        .success-box h2 {
+            color: #1b5e20;
+
+            font-size: 22px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .success-box p {
+            color: #555;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+
+        .card h2 {
+            color: #1b5e20;
+
+            text-align: center;
+
+            font-size: 22px;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =========================
+           SUMMARY GRID
+        ========================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .summary-box {
+            background: #f8fcf8;
+
+            border: 1px solid #d6ead8;
+
+            border-radius: 10px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+
+        .summary-box i {
+            font-size: 25px;
+
+            color: #2e7d32;
+
+            margin-bottom: 8px;
+        }
+
+
+        .summary-box h3 {
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .summary-box p {
+            color: #1b5e20;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           MODEL INFORMATION
+        ========================= */
+
+        .model-info {
+            background: #f8fcf8;
+
+            border-left: 5px solid #2e7d32;
+
+            padding: 20px;
+
+            border-radius: 10px;
+        }
+
+
+        .model-info p {
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+
+        .model-info strong {
+            color: #1b5e20;
+        }
+
+
+        /* =========================
+           PERFORMANCE IMAGE
+        ========================= */
+
+        .performance-container {
+            text-align: center;
+        }
+
+
+        .performance-container img {
+            display: block;
+
+            width: 100%;
+
+            max-width: 800px;
+
+            height: auto;
+
+            margin: 0 auto;
+
+            border-radius: 10px;
+
+            border: 1px solid #dce8dd;
+        }
+
+
+        .performance-note {
+            color: #777;
+
+            font-size: 13px;
+
+            margin-top: 12px;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .actions {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 30px;
+        }
+
+
+        .back-btn,
+        .again-btn {
+            padding: 12px 24px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        .back-btn {
+            background: #eeeeee;
+
+            color: #444;
+        }
+
+
+        .back-btn:hover {
+            background: #dddddd;
+        }
+
+
+        .again-btn {
+            background: #2e7d32;
+
+            color: white;
+        }
+
+
+        .again-btn:hover {
+            background: #1b5e20;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+
+            .nav-links {
+                gap: 12px;
+            }
+
+
+            .logo {
+                font-size: 18px;
+            }
+
+
+            .logo i {
+                font-size: 25px;
+            }
+
+
+            .container {
+                width: 92%;
+            }
+
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .card {
+                padding: 25px;
+            }
+
+
+            .actions {
+                flex-direction: column;
+            }
+
+
+            .back-btn,
+            .again-btn {
+                text-align: center;
+            }
+
+
+            .modal-box {
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+
+            .modal-box h2 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <div class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="nav-links">
+
+
+            <a href="{{ url_for('admin_dashboard') }}">
+                Dashboard
+            </a>
+
+
+            <a href="{{ url_for('admin_plants') }}">
+                Manage Plants
+            </a>
+
+
+            <a href="{{ url_for('admin_reports') }}">
+                View Reports
+            </a>
+
+
+            <a href="#"
+               class="logout-btn"
+               onclick="openLogoutModal(); return false;">
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h1>
+                Training Result
+            </h1>
+
+            <p>
+                Review the result of the AI model training process.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             SUCCESS
+        ========================= -->
+
+        <div class="success-box">
+
+
+            <div class="success-icon">
+
+                <i class="fa-solid fa-check"></i>
+
+            </div>
+
+
+            <h2>
+                Training Completed Successfully
+            </h2>
+
+
+            <p>
+                The YOLOv8 classification model has been trained successfully.
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             DATASET SUMMARY
+        ========================= -->
+
+        <div class="card">
+
+
+            <h2>
+                Dataset Summary
+            </h2>
+
+
+            <div class="summary-grid">
+
+
+                <div class="summary-box">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <h3>
+                        Classes
+                    </h3>
+
+                    <p>
+                        {{ training_result.classes }}
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <i class="fa-solid fa-images"></i>
+
+                    <h3>
+                        Training Images
+                    </h3>
+
+                    <p>
+                        {{ training_result.train_images }}
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    <h3>
+                        Validation Images
+                    </h3>
+
+                    <p>
+                        {{ training_result.val_images }}
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <i class="fa-solid fa-vial"></i>
+
+                    <h3>
+                        Test Images
+                    </h3>
+
+                    <p>
+                        {{ training_result.test_images }}
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <i class="fa-solid fa-arrows-rotate"></i>
+
+                    <h3>
+                        Epochs
+                    </h3>
+
+                    <p>
+                        {{ training_result.epochs }}
+                    </p>
+
+                </div>
+
+
+                <div class="summary-box">
+
+                    <i class="fa-solid fa-expand"></i>
+
+                    <h3>
+                        Image Size
+                    </h3>
+
+                    <p>
+                        {{ training_result.image_size }}
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             MODEL INFORMATION
+        ========================= -->
+
+        <div class="card">
+
+
+            <h2>
+                Model Information
+            </h2>
+
+
+            <div class="model-info">
+
+
+                <p>
+                    <strong>Model:</strong>
+                    {{ training_result.model }}
+                </p>
+
+
+                <p>
+                    <strong>Epochs:</strong>
+                    {{ training_result.epochs }}
+                </p>
+
+
+                <p>
+                    <strong>Image Size:</strong>
+                    {{ training_result.image_size }}
+                </p>
+
+
+                <p>
+                    <strong>Batch Size:</strong>
+                    {{ training_result.batch_size }}
+                </p>
+
+
+                <p>
+                    <strong>Training Output:</strong>
+                    {{ training_result.results_path }}
+                </p>
+
+
+                <p>
+                    <strong>Best Model:</strong>
+                    {{ training_result.best_model }}
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             TRAINING PERFORMANCE
+        ========================= -->
+
+        <div class="card">
+
+
+            <h2>
+                Training Performance
+            </h2>
+
+
+            <div class="performance-container">
+
+
+                {% if training_result.results_image %}
+
+                <img
+                    src="{{ url_for('static', filename=training_result.results_image) }}"
+                    alt="Training Performance">
+
+
+                {% elif training_result.results_path %}
+
+                <img
+                    src="{{ url_for('static', filename='training_results/results.png') }}"
+                    alt="Training Performance">
+
+
+                {% else %}
+
+                <p class="performance-note">
+                    Training performance image is not available.
+                </p>
+
+                {% endif %}
+
+
+                <p class="performance-note">
+
+                    The chart above shows the training performance
+                    generated during the model training process.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             ACTION BUTTONS
+        ========================= -->
+
+        <div class="actions">
+
+
+            <!-- BACK -->
+
+            <a
+                href="{{ url_for('admin_plants') }}"
+                class="back-btn">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Manage Plants
+
+            </a>
+
+
+            <!-- TRAIN AGAIN -->
+
+            <a
+                href="{{ url_for('train_model', plant_id=training_result.plant_id) }}"
+                class="again-btn">
+
+                <i class="fa-solid fa-rotate-right"></i>
+
+                Train Again
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         LOGOUT MODAL
+    ========================= -->
+
+    <div
+        id="logoutModal"
+        class="modal">
+
+
+        <div class="modal-box">
+
+
+            <!-- ICON -->
+
+            <div class="modal-icon">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2>
+                Logout Confirmation
+            </h2>
+
+
+            <!-- MESSAGE -->
+
+            <p>
+                Are you sure you want to logout?
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <!-- CANCEL -->
+
+                <button
+                    type="button"
+                    class="cancel-modal-btn"
+                    onclick="closeLogoutModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <!-- LOGOUT -->
+
+                <a
+                    href="{{ url_for('admin_logout') }}"
+                    class="confirm-btn">
+
+                    Logout
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        function openLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "flex";
+
+        }
+
+
+        function closeLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "none";
+
+        }
+
+
+        /* CLOSE WHEN CLICK OUTSIDE */
+
+        window.onclick = function(event) {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+
+            if (event.target === modal) {
+
+                closeLogoutModal();
+
+            }
+
+        };
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =================================
+           BODY
+        ================================= */
+
+        body {
+
+            min-height: 100vh;
+
+            background: #071F12;
+
+            color: white;
+        }
+
+
+        /* =================================
+           NAVBAR
+        ================================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: #05170D;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.30);
+
+            border-bottom:
+                1px solid rgba(123, 227, 107, 0.08);
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .logo i {
+
+            font-size: 28px;
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           NAV LINKS
+        ================================= */
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           MAIN
+        ================================= */
+
+        .main {
+
+            min-height: calc(100vh - 70px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 30px;
+        }
+
+
+        /* =================================
+           LOGIN CARD
+        ================================= */
+
+        .login-card {
+
+            width: 430px;
+
+            max-width: 100%;
+
+            background: #FFFFFF;
+
+            padding: 38px 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.30);
+
+            color: #222;
+        }
+
+
+        /* =================================
+           HEADER
+        ================================= */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* ADMIN ICON */
+
+        .admin-icon {
+
+            width: 72px;
+
+            height: 72px;
+
+            margin: 0 auto 16px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .admin-icon i {
+
+            color: #4CAF50;
+
+            font-size: 34px;
+        }
+
+
+        .header h2 {
+
+            color: #222;
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================
+           FLASH MESSAGE
+        ================================= */
+
+        .message {
+
+            background: #FFF3CD;
+
+            color: #664D03;
+
+            padding: 11px 13px;
+
+            margin-bottom: 20px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           FORM
+        ================================= */
+
+        .form-group {
+
+            margin-bottom: 18px;
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #333;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #D6E5D8;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #444;
+
+            background: white;
+
+            transition: 0.2s;
+        }
+
+
+        input:focus {
+
+            border-color: #4CAF50;
+
+            box-shadow:
+                0 0 0 3px rgba(76,175,80,0.10);
+        }
+
+
+        input::placeholder {
+
+            color: #999;
+        }
+
+
+        /* =================================
+           LOGIN BUTTON
+        ================================= */
+
+        .login-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 13px;
+
+            margin-top: 5px;
+
+            background: #4CAF50;
+
+            color: white;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .login-btn:hover {
+
+            background: #2E7D32;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =================================
+           USER LOGIN LINK
+        ================================= */
+
+        .links {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        .links a {
+
+            color: #2E7D32;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .links a:hover {
+
+            color: #1B5E20;
+
+            text-decoration: underline;
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 0 5%;
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .logo i {
+
+                font-size: 25px;
+            }
+
+
+            .nav-links a {
+
+                font-size: 14px;
+            }
+
+
+            .main {
+
+                padding: 20px;
+            }
+
+
+            .login-card {
+
+                padding: 30px 25px;
+            }
+
+
+            .header h2 {
+
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         NAVBAR
+    ================================= -->
+
+    <div class="navbar">
+
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+        <!-- HOME ONLY -->
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         MAIN
+    ================================= -->
+
+    <div class="main">
+
+
+        <div class="login-card">
+
+
+            <!-- HEADER -->
+
+            <div class="header">
+
+
+                <div class="admin-icon">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+
+                <h2>
+                    Admin Login
+                </h2>
+
+
+                <p>
+                    Login to manage the Plant Health Detection System.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- FLASH MESSAGE -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% for category, message in messages %}
+
+                    <div class="message">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endwith %}
+
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                method="POST"
+                action="{{ url_for('admin_login') }}">
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter admin email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter admin password"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- LOGIN -->
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    Login
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- RETURN TO USER LOGIN -->
+
+            <div class="links">
+
+                Return to
+
+                <a href="{{ url_for('login') }}">
+
+                    User Login
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

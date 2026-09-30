@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    min-height: 100vh;
+    background: #071F12;
+    color: #222;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+    height: 70px;
+
+    background: #05170D;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 7%;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.30);
+
+    border-bottom:
+        1px solid rgba(123,227,107,0.08);
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    color: white;
+
+    font-size: 21px;
+    font-weight: bold;
+}
+
+
+.logo i {
+    font-size: 28px;
+    color: #7BE36B;
+}
+
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 25px;
+}
+
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    text-decoration: none;
+
+    color: #D7E5DA;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.nav-links a:hover,
+.nav-links .active {
+    color: #7BE36B;
+}
+
+
+.logout-btn {
+    background: #4CAF50;
+
+    padding: 10px 17px;
+
+    border-radius: 7px;
+
+    color: white !important;
+}
+
+
+.logout-btn:hover {
+    background: #2E7D32;
+
+    color: white !important;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container {
+    width: 88%;
+    max-width: 1150px;
+
+    margin: 45px auto 60px;
+}
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.page-title {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.page-title h1 {
+    color: #7BE36B;
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+
+.page-title p {
+    color: #D7E5DA;
+
+    font-size: 15px;
+}
+
+
+/* =========================================
+   WELCOME CARD
+========================================= */
+
+.welcome-card {
+
+    background: #FFFFFF;
+
+    padding: 28px 34px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.20);
+
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 22px;
+
+    border:
+        1px solid #E1ECE2;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+.welcome-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 13px 30px rgba(0,0,0,0.24);
+
+    border-color: #B8DDBA;
+}
+
+
+.welcome-icon {
+
+    width: 68px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #E8F5E9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        transform 0.35s ease,
+        background 0.35s ease;
+}
+
+
+.welcome-icon i {
+
+    color: #2E7D32;
+
+    font-size: 30px;
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+.welcome-card:hover .welcome-icon {
+
+    background: #DDF2DF;
+
+    transform:
+        rotate(-5deg) scale(1.08);
+}
+
+
+.welcome-card:hover .welcome-icon i {
+
+    transform: scale(1.12);
+}
+
+
+.welcome-content {
+    flex: 1;
+}
+
+
+.welcome-content h2 {
+
+    color: #1B5E20;
+
+    font-size: 24px;
+
+    margin-bottom: 6px;
+
+    transition:
+        color 0.3s ease;
+}
+
+
+.welcome-card:hover
+.welcome-content h2 {
+
+    color: #2E7D32;
+}
+
+
+.welcome-content p {
+
+    color: #555;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 8px;
+}
+
+
+.welcome-status {
+
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #2E7D32;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.welcome-status-dot {
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #4CAF50;
+
+    box-shadow:
+        0 0 0 4px rgba(76,175,80,0.12);
+
+    animation:
+        welcomePulse 2s infinite;
+}
+
+
+@keyframes welcomePulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0 rgba(76,175,80,0.35);
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 7px rgba(76,175,80,0);
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0 rgba(76,175,80,0);
+    }
+}
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 24px;
+}
+
+
+.stat-card {
+
+    background: #FFFFFF;
+
+    padding: 23px 18px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.18);
+
+    text-align: center;
+
+    border-top:
+        4px solid #4CAF50;
+
+    border-left:
+        1px solid #E1ECE2;
+
+    border-right:
+        1px solid #E1ECE2;
+
+    border-bottom:
+        1px solid #E1ECE2;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.stat-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.22);
+}
+
+
+.stat-icon {
+
+    width: 48px;
+    height: 48px;
+
+    margin:
+        0 auto 12px;
+
+    border-radius: 50%;
+
+    background: #E8F5E9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.stat-icon i {
+
+    color: #2E7D32;
+
+    font-size: 21px;
+}
+
+
+.stat-card h3 {
+
+    color: #555;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+}
+
+
+.stat-card p {
+
+    color: #2E7D32;
+
+    font-size: 29px;
+
+    font-weight: bold;
+}
+
+
+/* =========================================
+   QUICK ACTIONS
+========================================= */
+
+.action-card {
+
+    background: #FFFFFF;
+
+    padding: 28px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.18);
+
+    margin-bottom: 24px;
+
+    border:
+        1px solid #E1ECE2;
+}
+
+
+.section-title {
+
+    display: flex;
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    color: #1B5E20;
+
+    font-size: 20px;
+
+    margin-bottom: 22px;
+}
+
+
+.section-title i {
+
+    font-size: 19px;
+
+    color: #4CAF50;
+}
+
+
+.action-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+
+.action-item {
+
+    background: #F4FAF5;
+
+    border:
+        1px solid #D5E7D7;
+
+    border-radius: 12px;
+
+    padding: 23px;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+
+.action-item:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 7px 18px rgba(0,0,0,0.15);
+
+    border-color:
+        #4CAF50;
+
+    background:
+        #EEF8EF;
+}
+
+
+.action-icon {
+
+    width: 58px;
+    height: 58px;
+
+    margin:
+        0 auto 12px;
+
+    border-radius: 50%;
+
+    background: #E8F5E9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.action-icon i {
+
+    color: #2E7D32;
+
+    font-size: 25px;
+}
+
+
+.action-item h3 {
+
+    color: #1B5E20;
+
+    font-size: 17px;
+
+    margin-bottom: 7px;
+}
+
+
+.action-item p {
+
+    color: #666;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   RECENT RESULTS
+========================================= */
+
+.recent-card {
+
+    background: #FFFFFF;
+
+    padding: 28px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.18);
+
+    border:
+        1px solid #E1ECE2;
+}
+
+
+.table-wrapper {
+
+    overflow-x: auto;
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+th,
+td {
+
+    padding: 14px 12px;
+
+    text-align: left;
+
+    border-bottom:
+        1px solid #E5ECE6;
+
+    font-size: 13px;
+}
+
+
+th {
+
+    background: #F0F8F1;
+
+    color: #2E7D32;
+
+    font-weight: bold;
+}
+
+
+td {
+
+    color: #444;
+}
+
+
+tr:hover td {
+
+    background: #F8FCF8;
+}
+
+
+.no-results {
+
+    text-align: center;
+
+    color: #777;
+
+    padding: 25px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   HEALTH STATUS
+========================================= */
+
+td:nth-child(2) {
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   LOGOUT MODAL
+========================================= */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 1000;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        rgba(0,0,0,0.65);
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+.modal-box {
+
+    background: #FFFFFF;
+
+    width: 390px;
+
+    max-width: 100%;
+
+    padding: 35px 30px;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.30);
+}
+
+
+.modal-icon {
+
+    width: 60px;
+    height: 60px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #E8F5E9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.modal-icon i {
+
+    color: #2E7D32;
+
+    font-size: 25px;
+}
+
+
+.modal-box h2 {
+
+    color: #1B5E20;
+
+    font-size: 21px;
+
+    margin-bottom: 9px;
+}
+
+
+.modal-box p {
+
+    color: #666;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+.modal-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+}
+
+
+.cancel-btn,
+.confirm-btn {
+
+    padding: 11px 24px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+
+.cancel-btn {
+
+    border:
+        1px solid #D5E0D6;
+
+    background: #F5F7F5;
+
+    color: #444;
+}
+
+
+.cancel-btn:hover {
+
+    background: #E8ECE8;
+}
+
+
+.confirm-btn {
+
+    background: #4CAF50;
+
+    color: white;
+
+    font-weight: bold;
+}
+
+
+.confirm-btn:hover {
+
+    background: #2E7D32;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 950px) {
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 750px) {
+
+    .navbar {
+
+        padding: 0 5%;
+    }
+
+
+    .nav-links {
+
+        gap: 12px;
+    }
+
+
+    .nav-links a span {
+
+        display: none;
+    }
+
+
+    .logout-btn {
+
+        padding: 10px 13px;
+    }
+
+
+    .action-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .container {
+
+        width: 92%;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .navbar {
+
+        height: auto;
+
+        min-height: 70px;
+
+        padding: 14px 5%;
+    }
+
+
+    .logo {
+
+        font-size: 17px;
+    }
+
+
+    .logo i {
+
+        font-size: 24px;
+    }
+
+
+    .nav-links {
+
+        gap: 8px;
+    }
+
+
+    .stats-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .welcome-card {
+
+        text-align: center;
+
+        flex-direction: column;
+
+        padding: 25px 20px;
+    }
+
+
+    .welcome-content {
+
+        width: 100%;
+    }
+
+
+    .welcome-status {
+
+        justify-content: center;
+    }
+
+
+    .page-title h1 {
+
+        font-size: 27px;
+    }
+
+
+    .container {
+
+        margin-top: 30px;
+    }
+
+
+    th,
+    td {
+
+        white-space: nowrap;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<div class="navbar">
+
+
+    <div class="logo">
+
+        <i class="fa-solid fa-leaf"></i>
+
+        <span>
+            Plant Health Detection
+        </span>
+
+    </div>
+
+
+    <div class="nav-links">
+
+
+        <a href="{{ url_for('dashboard') }}"
+           class="active">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="{{ url_for('detect') }}">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Detection
+            </span>
+
+        </a>
+
+
+        <a href="{{ url_for('reports') }}">
+
+            <i class="fa-solid fa-file-lines"></i>
+
+            <span>
+                View Reports
+            </span>
+
+        </a>
+
+
+        <a href="{{ url_for('about') }}">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <span>
+                About
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="logout-btn"
+           onclick="openLogoutModal(); return false;">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            <span>
+                Logout
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<div class="container">
+
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-title">
+
+        <h1>
+            User Dashboard
+        </h1>
+
+        <p>
+            View your plant health detection summary and recent results.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         WELCOME CARD
+    ========================================= -->
+
+    <div class="welcome-card">
+
+
+        <div class="welcome-icon">
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+
+        <div class="welcome-content">
+
+
+            <h2>
+
+                <span id="welcomeGreeting">
+                    Welcome
+                </span>,
+
+                {{ user_name }}
+
+            </h2>
+
+
+            <p>
+
+                Monitor your plant health detection activities
+                from your dashboard.
+
+            </p>
+
+
+            <div class="welcome-status">
+
+                <span class="welcome-status-dot"></span>
+
+                <span>
+                    System ready for plant analysis
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         STATISTICS
+    ========================================= -->
+
+    <div class="stats-grid">
+
+
+        <!-- TOTAL -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+            </div>
+
+
+            <h3>
+                Total Detections
+            </h3>
+
+
+            <p>
+                {{ total_detections }}
+            </p>
+
+
+        </div>
+
+
+        <!-- HEALTHY -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+
+            <h3>
+                Healthy Plants
+            </h3>
+
+
+            <p>
+                {{ healthy_plants }}
+            </p>
+
+
+        </div>
+
+
+        <!-- UNHEALTHY -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+            </div>
+
+
+            <h3>
+                Unhealthy Plants
+            </h3>
+
+
+            <p>
+                {{ unhealthy_plants }}
+            </p>
+
+
+        </div>
+
+
+        <!-- MONTHLY -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+            </div>
+
+
+            <h3>
+                This Month Unhealthy
+            </h3>
+
+
+            <p>
+                {{ monthly_unhealthy }}
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         QUICK ACTIONS
+    ========================================= -->
+
+    <div class="action-card">
+
+
+        <h2 class="section-title">
+
+            <i class="fa-solid fa-bolt"></i>
+
+            Quick Actions
+
+        </h2>
+
+
+        <div class="action-grid">
+
+
+            <!-- DETECTION -->
+
+            <a href="{{ url_for('detect') }}"
+               class="action-item">
+
+
+                <div class="action-icon">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                </div>
+
+
+                <h3>
+                    Plant Detection
+                </h3>
+
+
+                <p>
+                    Upload a plant leaf image and check its health condition.
+                </p>
+
+
+            </a>
+
+
+            <!-- REPORTS -->
+
+            <a href="{{ url_for('reports') }}"
+               class="action-item">
+
+
+                <div class="action-icon">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                </div>
+
+
+                <h3>
+                    View Reports
+                </h3>
+
+
+                <p>
+                    View your previous plant health detection records.
+                </p>
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         RECENT RESULTS
+    ========================================= -->
+
+    <div class="recent-card">
+
+
+        <h2 class="section-title">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            Recent Detection Results
+
+        </h2>
+
+
+        {% if recent_detections %}
+
+
+        <div class="table-wrapper">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Plant
+                        </th>
+
+                        <th>
+                            Health Status
+                        </th>
+
+                        <th>
+                            Disease
+                        </th>
+
+                        <th>
+                            Confidence
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for result in recent_detections %}
+
+
+                    <tr>
+
+
+                        <td>
+                            {{ result.plant_name }}
+                        </td>
+
+
+                        <td>
+                            {{ result.health_status }}
+                        </td>
+
+
+                        <td>
+                            {{ result.disease_name }}
+                        </td>
+
+
+                        <td>
+                            {{ "%.2f"|format(result.confidence) }}%
+                        </td>
+
+
+                        <td>
+                            {{ result.classification_date }}
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+        {% else %}
+
+
+        <p class="no-results">
+
+            No detection results available yet.
+
+        </p>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================
+     LOGOUT MODAL
+========================================= -->
+
+<div id="logoutModal"
+     class="modal">
+
+
+    <div class="modal-box">
+
+
+        <div class="modal-icon">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+        </div>
+
+
+        <h2>
+            Logout Confirmation
+        </h2>
+
+
+        <p>
+            Are you sure you want to logout?
+        </p>
+
+
+        <div class="modal-buttons">
+
+
+            <button
+                type="button"
+                class="cancel-btn"
+                onclick="closeLogoutModal()">
+
+                Cancel
+
+            </button>
+
+
+            <a href="{{ url_for('logout') }}"
+               class="confirm-btn">
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+
+/* =========================================
+   DYNAMIC WELCOME GREETING
+========================================= */
+
+const hour =
+    new Date().getHours();
+
+
+const greetingElement =
+    document.getElementById("welcomeGreeting");
+
+
+if (greetingElement) {
+
+
+    if (hour >= 5 && hour < 12) {
+
+        greetingElement.textContent =
+            "Good Morning";
+
+    }
+
+
+    else if (hour >= 12 && hour < 18) {
+
+        greetingElement.textContent =
+            "Good Afternoon";
+
+    }
+
+
+    else {
+
+        greetingElement.textContent =
+            "Good Evening";
+
+    }
+
+}
+
+
+/* =========================================
+   LOGOUT MODAL
+========================================= */
+
+function openLogoutModal() {
+
+    document.getElementById("logoutModal")
+        .style.display = "flex";
+
+}
+
+
+function closeLogoutModal() {
+
+    document.getElementById("logoutModal")
+        .style.display = "none";
+
+}
+
+
+window.onclick = function(event) {
+
+    const modal =
+        document.getElementById("logoutModal");
+
+
+    if (event.target === modal) {
+
+        closeLogoutModal();
+
+    }
+
+};
+
+</script>
+
+
+</body>
+
+</html>

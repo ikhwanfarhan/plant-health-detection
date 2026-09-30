@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>About - Plant Health Detection</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            min-height: 100vh;
+            background: #071F12;
+            color: #222;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 70px;
+            background: #05170D;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 7%;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+        }
+
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            color: white;
+
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+
+        .logo i {
+            font-size: 28px;
+            color: #7BE36B;
+        }
+
+
+        /* =========================
+           NAV LINKS
+        ========================= */
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+
+            gap: 25px;
+        }
+
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .nav-links a:hover,
+        .nav-links .active {
+            color: #7BE36B;
+        }
+
+
+        .logout-btn {
+            background: #4CAF50;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            color: white !important;
+        }
+
+
+        .logout-btn:hover {
+            background: #2E7D32;
+
+            color: white !important;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 88%;
+            max-width: 1050px;
+
+            margin: 45px auto 60px;
+        }
+
+
+        /* =========================
+           PAGE TITLE
+        ========================= */
+
+        .page-title {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+            color: #7BE36B;
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-title p {
+            color: #D7E5DA;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           BACK TO HOME
+        ========================= */
+
+        .back-home-wrapper {
+            text-align: center;
+
+            margin-top: -15px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .back-home {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 11px 20px;
+
+            background: #4CAF50;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .back-home:hover {
+            background: #2E7D32;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           GENERAL CARD
+        ========================= */
+
+        .about-card {
+            background: #FFFFFF;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.20);
+
+            margin-bottom: 24px;
+        }
+
+
+        .card-title {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: #0F3D24;
+
+            font-size: 21px;
+
+            margin-bottom: 16px;
+        }
+
+
+        .card-title i {
+            color: #4CAF50;
+
+            font-size: 19px;
+        }
+
+
+        .about-card p {
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            margin-bottom: 14px;
+        }
+
+
+        .about-card p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .how-it-works {
+            background: #FFFFFF;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            margin-bottom: 24px;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.20);
+        }
+
+
+        .how-title {
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .how-title h2 {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            color: #0F3D24;
+
+            font-size: 22px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .how-title h2 i {
+            color: #4CAF50;
+
+            font-size: 20px;
+        }
+
+
+        .how-title p {
+            color: #666;
+
+            font-size: 14px;
+        }
+
+
+        .steps-grid {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 16px;
+        }
+
+
+        .step-card {
+            background: #F4FAF5;
+
+            border: 1px solid #d6ead8;
+
+            border-radius: 12px;
+
+            padding: 25px 16px;
+
+            text-align: center;
+
+            min-height: 220px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: 0.2s;
+        }
+
+
+        .step-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #4CAF50;
+
+            box-shadow: 0 5px 15px rgba(46,125,50,0.12);
+        }
+
+
+        .step-icon {
+            width: 62px;
+            height: 62px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 15px;
+        }
+
+
+        .step-icon i {
+            color: #4CAF50;
+
+            font-size: 25px;
+        }
+
+
+        .step-number {
+            color: #5E8F67;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+            text-transform: uppercase;
+        }
+
+
+        .step-card h3 {
+            color: #0F3D24;
+
+            font-size: 16px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .step-card p {
+            color: #666;
+
+            font-size: 13px;
+
+            line-height: 1.55;
+
+            margin: 0;
+        }
+
+
+        /* =========================
+           SUPPORTED PLANTS
+        ========================= */
+
+        .plant-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+
+        .plant-card {
+            background: #F4FAF5;
+
+            border: 1px solid #d6ead8;
+
+            border-radius: 12px;
+
+            padding: 25px 20px;
+
+            text-align: center;
+
+            transition: 0.2s;
+        }
+
+
+        .plant-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #4CAF50;
+
+            box-shadow: 0 5px 15px rgba(46,125,50,0.12);
+        }
+
+
+        .plant-icon {
+            width: 60px;
+            height: 60px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+        }
+
+
+        .plant-card h3 {
+            color: #0F3D24;
+
+            font-size: 17px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .plant-card p {
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+
+            margin: 0;
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .feature-list {
+            list-style: none;
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        .feature-list li {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: #F4FAF5;
+
+            border: 1px solid #d6ead8;
+
+            border-radius: 9px;
+
+            padding: 13px;
+
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.4;
+        }
+
+
+        .feature-list li i {
+            color: #4CAF50;
+
+            font-size: 15px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+
+            z-index: 1000;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0,0,0,0.45);
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        .modal-box {
+            background: #FFFFFF;
+
+            width: 390px;
+
+            max-width: 100%;
+
+            padding: 35px 30px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.20);
+        }
+
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .modal-icon i {
+            color: #2E7D32;
+
+            font-size: 25px;
+        }
+
+
+        .modal-box h2 {
+            color: #222;
+
+            font-size: 21px;
+
+            margin-bottom: 9px;
+        }
+
+
+        .modal-box p {
+            color: #666;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .modal-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+        }
+
+
+        .cancel-btn,
+        .confirm-btn {
+            padding: 11px 24px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+
+        .cancel-btn {
+            background: #eeeeee;
+
+            color: #444;
+        }
+
+
+        .cancel-btn:hover {
+            background: #dddddd;
+        }
+
+
+        .confirm-btn {
+            background: #4CAF50;
+
+            color: white;
+        }
+
+
+        .confirm-btn:hover {
+            background: #2E7D32;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+
+            .plant-grid {
+                grid-template-columns: 1fr;
+
+                max-width: 600px;
+
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+
+            .nav-links {
+                gap: 12px;
+            }
+
+
+            .nav-links a span {
+                display: none;
+            }
+
+
+            .logout-btn {
+                padding: 10px 13px;
+            }
+
+
+            .container {
+                width: 92%;
+
+                margin-top: 30px;
+            }
+
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                height: auto;
+
+                min-height: 70px;
+
+                padding: 14px 5%;
+            }
+
+
+            .logo {
+                font-size: 17px;
+            }
+
+
+            .logo i {
+                font-size: 24px;
+            }
+
+
+            .nav-links {
+                gap: 8px;
+            }
+
+
+            .nav-links a {
+                font-size: 13px;
+            }
+
+
+            .page-title h1 {
+                font-size: 27px;
+            }
+
+
+            .about-card,
+            .how-it-works {
+                padding: 22px;
+            }
+
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .step-card {
+                min-height: 190px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <div class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="nav-links">
+
+
+            {% if session.get('user_id') %}
+
+                <!-- LOGGED IN -->
+
+                <a href="{{ url_for('dashboard') }}">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('detect') }}">
+
+                    <i class="fa-solid fa-leaf"></i>
+
+                    <span>
+                        Plant Detection
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('reports') }}">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <span>
+                        View Reports
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('about') }}"
+                   class="active">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <span>
+                        About
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="logout-btn"
+                   onclick="openLogoutModal(); return false;">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+                        Logout
+                    </span>
+
+                </a>
+
+
+            {% else %}
+
+                <!-- NOT LOGGED IN -->
+
+                <a href="{{ url_for('home') }}">
+
+                    Home
+
+                </a>
+
+
+                <a href="{{ url_for('about') }}"
+                   class="active">
+
+                    About
+
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h1>
+                About Plant Health Detection
+            </h1>
+
+            <p>
+                Learn more about the purpose and features of the system.
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             BACK TO HOME
+        ========================= -->
+
+        {% if not session.get('user_id') %}
+
+            <div class="back-home-wrapper">
+
+                <button type="button"
+                        class="back-home"
+                        onclick="openHomeModal()">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Home
+
+                </button>
+
+            </div>
+
+        {% endif %}
+
+
+
+        <!-- =========================
+             ABOUT THE SYSTEM
+        ========================= -->
+
+        <div class="about-card">
+
+
+            <h2 class="card-title">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                About the System
+
+            </h2>
+
+
+            <p>
+                The Web-Based Plant Health Detection System Using Machine
+                Learning is developed to help users analyse the health
+                condition of plant leaves through image classification.
+            </p>
+
+
+            <p>
+                Users can upload a plant leaf image and the system uses a
+                YOLOv8 machine learning model to analyse the image. The
+                system provides the plant name, health status, disease name
+                and confidence score.
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             HOW IT WORKS
+        ========================= -->
+
+        <div class="how-it-works">
+
+
+            <div class="how-title">
+
+                <h2>
+
+                    <i class="fa-solid fa-gears"></i>
+
+                    How It Works
+
+                </h2>
+
+
+                <p>
+                    Detect plant health in four simple steps
+                </p>
+
+            </div>
+
+
+
+            <div class="steps-grid">
+
+
+                <!-- STEP 1 -->
+
+                <div class="step-card">
+
+                    <div class="step-icon">
+
+                        <i class="fa-solid fa-upload"></i>
+
+                    </div>
+
+
+                    <div class="step-number">
+                        Step 01
+                    </div>
+
+
+                    <h3>
+                        Upload Image
+                    </h3>
+
+
+                    <p>
+                        Upload a clear image of a plant leaf
+                        to the system.
+                    </p>
+
+                </div>
+
+
+
+                <!-- STEP 2 -->
+
+                <div class="step-card">
+
+                    <div class="step-icon">
+
+                        <i class="fa-solid fa-bolt"></i>
+
+                    </div>
+
+
+                    <div class="step-number">
+                        Step 02
+                    </div>
+
+
+                    <h3>
+                        AI Analysis
+                    </h3>
+
+
+                    <p>
+                        The YOLOv8 model analyses the uploaded
+                        image using learned visual patterns.
+                    </p>
+
+                </div>
+
+
+
+                <!-- STEP 3 -->
+
+                <div class="step-card">
+
+                    <div class="step-icon">
+
+                        <i class="fa-solid fa-bullseye"></i>
+
+                    </div>
+
+
+                    <div class="step-number">
+                        Step 03
+                    </div>
+
+
+                    <h3>
+                        Detect Plant Health
+                    </h3>
+
+
+                    <p>
+                        The system identifies the plant,
+                        health status and disease.
+                    </p>
+
+                </div>
+
+
+
+                <!-- STEP 4 -->
+
+                <div class="step-card">
+
+                    <div class="step-icon">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                    </div>
+
+
+                    <div class="step-number">
+                        Step 04
+                    </div>
+
+
+                    <h3>
+                        View &amp; Print Result
+                    </h3>
+
+
+                    <p>
+                        View the plant name, health status,
+                        disease and confidence score, then
+                        print the detection result.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             SUPPORTED PLANTS
+        ========================= -->
+
+        <div class="about-card">
+
+
+            <h2 class="card-title">
+
+                <i class="fa-solid fa-seedling"></i>
+
+                Supported Plants
+
+            </h2>
+
+
+
+            <div class="plant-grid">
+
+
+                <!-- TOMATO -->
+
+                <div class="plant-card">
+
+                    <div class="plant-icon">
+                        🍅
+                    </div>
+
+
+                    <h3>
+                        Tomato
+                    </h3>
+
+
+                    <p>
+                        Supports healthy and selected tomato
+                        leaf diseases.
+                    </p>
+
+                </div>
+
+
+
+                <!-- POTATO -->
+
+                <div class="plant-card">
+
+                    <div class="plant-icon">
+                        🥔
+                    </div>
+
+
+                    <h3>
+                        Potato
+                    </h3>
+
+
+                    <p>
+                        Supports healthy, early blight
+                        and late blight classes.
+                    </p>
+
+                </div>
+
+
+
+                <!-- PEPPER BELL -->
+
+                <div class="plant-card">
+
+                    <div class="plant-icon">
+                        🌶️
+                    </div>
+
+
+                    <h3>
+                        Pepper Bell
+                    </h3>
+
+
+                    <p>
+                        Supports healthy and bacterial
+                        spot classes.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             SYSTEM FEATURES
+        ========================= -->
+
+        <div class="about-card">
+
+
+            <h2 class="card-title">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                System Features
+
+            </h2>
+
+
+
+            <ul class="feature-list">
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Plant leaf image upload and classification
+
+                </li>
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Healthy or unhealthy plant health status
+
+                </li>
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Disease identification for unhealthy plants
+
+                </li>
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Confidence score display
+
+                </li>
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    View and print previous detection reports
+
+                </li>
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Search detection records
+
+                </li>
+
+
+                <li>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Administrator plant information management
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         BACK TO HOME MODAL
+    ========================= -->
+
+    {% if not session.get('user_id') %}
+
+    <div id="homeModal"
+         class="modal">
+
+
+        <div class="modal-box">
+
+
+            <div class="modal-icon">
+
+                <i class="fa-solid fa-house"></i>
+
+            </div>
+
+
+            <h2>
+                Back to Home?
+            </h2>
+
+
+            <p>
+                Are you sure you want to return to the homepage?
+            </p>
+
+
+            <div class="modal-buttons">
+
+
+                <button type="button"
+                        class="cancel-btn"
+                        onclick="closeHomeModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <a href="{{ url_for('home') }}"
+                   class="confirm-btn">
+
+                    Back to Home
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- =========================
+         LOGOUT MODAL
+    ========================= -->
+
+    {% if session.get('user_id') %}
+
+    <div id="logoutModal"
+         class="modal">
+
+
+        <div class="modal-box">
+
+
+            <div class="modal-icon">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </div>
+
+
+            <h2>
+                Logout Confirmation
+            </h2>
+
+
+            <p>
+                Are you sure you want to logout?
+            </p>
+
+
+            <div class="modal-buttons">
+
+
+                <button type="button"
+                        class="cancel-btn"
+                        onclick="closeLogoutModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <a href="{{ url_for('logout') }}"
+                   class="confirm-btn">
+
+                    Logout
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        /* =========================
+           HOME MODAL
+        ========================= */
+
+        function openHomeModal() {
+
+            const modal =
+                document.getElementById("homeModal");
+
+            if (modal) {
+
+                modal.style.display = "flex";
+
+            }
+
+        }
+
+
+        function closeHomeModal() {
+
+            const modal =
+                document.getElementById("homeModal");
+
+            if (modal) {
+
+                modal.style.display = "none";
+
+            }
+
+        }
+
+
+        /* =========================
+           LOGOUT MODAL
+        ========================= */
+
+        function openLogoutModal() {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+            if (modal) {
+
+                modal.style.display = "flex";
+
+            }
+
+        }
+
+
+        function closeLogoutModal() {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+            if (modal) {
+
+                modal.style.display = "none";
+
+            }
+
+        }
+
+
+        /* =========================
+           CLOSE MODAL
+           WHEN CLICKING OUTSIDE
+        ========================= */
+
+        window.onclick = function(event) {
+
+            const homeModal =
+                document.getElementById("homeModal");
+
+            const logoutModal =
+                document.getElementById("logoutModal");
+
+
+            if (homeModal &&
+                event.target === homeModal) {
+
+                closeHomeModal();
+
+            }
+
+
+            if (logoutModal &&
+                event.target === logoutModal) {
+
+                closeLogoutModal();
+
+            }
+
+        };
+
+    </script>
+
+
+</body>
+
+</html>

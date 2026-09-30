@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Plant Dataset</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            background: #071F12;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 70px;
+            background: #05170D;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 7%;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        /* LOGO */
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            color: white;
+
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .logo i {
+            font-size: 30px;
+            color: #7BE36B;
+        }
+
+        /* NAV LINKS */
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #7BE36B;
+        }
+
+        /* LOGOUT BUTTON */
+
+        .logout-btn {
+            background: #4CAF50;
+            color: white !important;
+
+            padding: 10px 18px;
+            border-radius: 7px;
+        }
+
+        .logout-btn:hover {
+            background: #2E7D32;
+        }
+
+        /* =========================
+           LOGOUT MODAL
+        ========================= */
+
+        .modal {
+            display: none;
+
+            position: fixed;
+            z-index: 9999;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: white;
+
+            width: 450px;
+            max-width: 90%;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.30);
+        }
+
+        /* LOGOUT ICON */
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-icon i {
+            font-size: 30px;
+            color: #2E7D32;
+        }
+
+        /* TITLE */
+
+        .modal-box h2 {
+            color: #1B5E20;
+
+            font-size: 26px;
+
+            margin-bottom: 12px;
+        }
+
+        /* MESSAGE */
+
+        .modal-box p {
+            color: #777;
+
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+        /* BUTTONS */
+
+        .modal-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+        .cancel-modal-btn,
+        .confirm-btn {
+            width: 100px;
+
+            padding: 12px 10px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+        /* CANCEL */
+
+        .cancel-modal-btn {
+            background: #EEEEEE;
+            color: #444;
+        }
+
+        .cancel-modal-btn:hover {
+            background: #DDDDDD;
+        }
+
+        /* LOGOUT */
+
+        .confirm-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background: #2E7D32;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 86%;
+            max-width: 700px;
+
+            margin: 50px auto;
+        }
+
+        /* =========================
+           PAGE TITLE
+        ========================= */
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            color: #7BE36B;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #D7E5DA;
+            font-size: 14px;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: #FFFFFF;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        /* =========================
+           MODE SELECTION
+        ========================= */
+
+        .mode-box {
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 25px;
+        }
+
+        .mode-option {
+            flex: 1;
+
+            border: 1px solid #D6E5D8;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            cursor: pointer;
+
+            text-align: center;
+
+            transition: 0.2s;
+        }
+
+        .mode-option:hover {
+            border-color: #4CAF50;
+            background: #F4FAF5;
+        }
+
+        .mode-option input {
+            margin-right: 7px;
+        }
+
+        .mode-option strong {
+            color: #1B5E20;
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+
+            color: #1B5E20;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 12px 15px;
+
+            border: 1px solid #D6E5D8;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            background: white;
+
+            color: #222;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4CAF50;
+
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.10);
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            width: 100%;
+
+            padding: 10px;
+
+            border: 1px solid #D6E5D8;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            background: #F4FAF5;
+
+            color: #333;
+        }
+
+        input[type="file"]:focus {
+            border-color: #4CAF50;
+        }
+
+        .file-note {
+            margin-top: 8px;
+
+            color: #777;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .existing-section {
+            display: none;
+        }
+
+        .new-section {
+            display: block;
+        }
+
+        /* =========================
+           INFO BOX
+        ========================= */
+
+        .info-box {
+            background: #F4FAF5;
+
+            border-left: 4px solid #4CAF50;
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 6px;
+
+            color: #555;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        /* =========================
+           ACTION BUTTONS
+        ========================= */
+
+        .actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+        .cancel-btn {
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            background: #EEEEEE;
+
+            color: #444;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .cancel-btn:hover {
+            background: #DDDDDD;
+        }
+
+        .submit-btn {
+            border: none;
+
+            padding: 11px 22px;
+
+            border-radius: 8px;
+
+            background: #4CAF50;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #2E7D32;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .logo i {
+                font-size: 25px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .mode-box {
+                flex-direction: column;
+            }
+
+            .modal-box {
+                width: 90%;
+                padding: 30px 25px;
+            }
+
+            .modal-box h2 {
+                font-size: 24px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <div class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('admin_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('admin_plants') }}">
+                Manage Plants
+            </a>
+
+            <a href="{{ url_for('admin_reports') }}">
+                View Reports
+            </a>
+
+            <a href="#"
+               class="logout-btn"
+               onclick="openLogoutModal(); return false;">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="container">
+
+
+        <div class="page-title">
+
+            <h1>
+                Add Plant Dataset
+            </h1>
+
+            <p>
+                Add a new plant or update the dataset of an existing plant.
+            </p>
+
+        </div>
+
+
+
+        <div class="card">
+
+
+            <form method="POST"
+                  enctype="multipart/form-data">
+
+
+                <!-- =========================
+                     MODE SELECTION
+                ========================= -->
+
+                <div class="mode-box">
+
+
+                    <!-- ADD NEW -->
+
+                    <label class="mode-option">
+
+                        <input
+                            type="radio"
+                            name="mode"
+                            value="new"
+                            checked
+                            onclick="showNewPlant()"
+                        >
+
+                        <strong>
+                            Add New Plant
+                        </strong>
+
+                    </label>
+
+
+                    <!-- UPDATE EXISTING -->
+
+                    <label class="mode-option">
+
+                        <input
+                            type="radio"
+                            name="mode"
+                            value="existing"
+                            onclick="showExistingPlant()"
+                        >
+
+                        <strong>
+                            Update Existing Plant
+                        </strong>
+
+                    </label>
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     NEW PLANT
+                ========================= -->
+
+                <div id="new-section"
+                     class="new-section">
+
+
+                    <div class="info-box">
+
+                        Add a new plant to the system.
+                        You may upload its machine learning
+                        dataset now or add it later.
+
+                    </div>
+
+
+                    <div class="form-group">
+
+
+                        <label for="plant_name">
+
+                            Plant Name
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="plant_name"
+                            name="plant_name"
+                            placeholder="Example: Cucumber"
+                        >
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     EXISTING PLANT
+                ========================= -->
+
+                <div id="existing-section"
+                     class="existing-section">
+
+
+                    <div class="info-box">
+
+                        Select an existing plant and upload
+                        additional dataset images.
+                        The existing dataset will be kept.
+
+                    </div>
+
+
+                    <div class="form-group">
+
+
+                        <label for="plant_id">
+
+                            Select Plant
+
+                        </label>
+
+
+                        <select
+                            id="plant_id"
+                            name="plant_id"
+                        >
+
+                            <option value="">
+
+                                -- Select Plant --
+
+                            </option>
+
+
+                            {% for plant in plants %}
+
+                            <option value="{{ plant.plant_id }}">
+
+                                {{ plant.plant_name }}
+
+                            </option>
+
+                            {% endfor %}
+
+
+                        </select>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     DESCRIPTION
+                ========================= -->
+
+                <div class="form-group"
+                     id="description-section">
+
+
+                    <label for="description">
+
+                        Description
+
+                    </label>
+
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        placeholder="Enter plant description"
+                    ></textarea>
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     DATASET
+                ========================= -->
+
+                <div class="form-group">
+
+
+                    <label for="dataset">
+
+                        Dataset ZIP File
+
+                    </label>
+
+
+                    <input
+                        type="file"
+                        id="dataset"
+                        name="dataset"
+                        accept=".zip"
+                    >
+
+
+                    <div class="file-note">
+
+                        Upload a ZIP file containing the
+                        plant image classes.
+
+                        <br>
+
+                        For an existing plant, the new dataset
+                        will be added without removing the
+                        existing data.
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =========================
+                     BUTTONS
+                ========================= -->
+
+                <div class="actions">
+
+
+                    <a
+                        href="{{ url_for('admin_plants') }}"
+                        class="cancel-btn"
+                    >
+
+                        Cancel
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                        id="submit-btn"
+                    >
+
+                        Add Plant
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         LOGOUT MODAL
+    ========================= -->
+
+    <div id="logoutModal"
+         class="modal">
+
+
+        <div class="modal-box">
+
+
+            <!-- ICON -->
+
+            <div class="modal-icon">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2>
+
+                Logout Confirmation
+
+            </h2>
+
+
+            <!-- MESSAGE -->
+
+            <p>
+
+                Are you sure you want to logout?
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <button
+                    type="button"
+                    class="cancel-modal-btn"
+                    onclick="closeLogoutModal()"
+                >
+
+                    Cancel
+
+                </button>
+
+
+                <a
+                    href="{{ url_for('admin_logout') }}"
+                    class="confirm-btn"
+                >
+
+                    Logout
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        /* =========================
+           NEW PLANT
+        ========================= */
+
+        function showNewPlant() {
+
+            document.getElementById("new-section").style.display = "block";
+
+            document.getElementById("existing-section").style.display = "none";
+
+            document.getElementById("description-section").style.display = "block";
+
+            document.getElementById("plant_name").required = true;
+
+            document.getElementById("plant_id").required = false;
+
+            document.getElementById("description").required = false;
+
+            document.getElementById("submit-btn").innerText = "Add Plant";
+
+        }
+
+
+
+        /* =========================
+           EXISTING PLANT
+        ========================= */
+
+        function showExistingPlant() {
+
+            document.getElementById("new-section").style.display = "none";
+
+            document.getElementById("existing-section").style.display = "block";
+
+            document.getElementById("description-section").style.display = "none";
+
+            document.getElementById("plant_name").required = false;
+
+            document.getElementById("plant_id").required = true;
+
+            document.getElementById("description").required = false;
+
+            document.getElementById("submit-btn").innerText = "Update Dataset";
+
+        }
+
+
+
+        /* =========================
+           LOGOUT MODAL
+        ========================= */
+
+        function openLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "flex";
+
+        }
+
+
+
+        function closeLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "none";
+
+        }
+
+
+
+        /* CLOSE MODAL WHEN CLICK OUTSIDE */
+
+        window.onclick = function(event) {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+            if (event.target === modal) {
+
+                closeLogoutModal();
+
+            }
+
+        };
+
+
+    </script>
+
+
+</body>
+
+</html>

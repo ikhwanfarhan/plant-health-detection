@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dataset Details</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =================================
+           BODY
+        ================================= */
+
+        body {
+
+            min-height: 100vh;
+
+            background: #071F12;
+
+            color: white;
+        }
+
+
+        /* =================================
+           NAVBAR
+        ================================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: #05170D;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .logo i {
+
+            font-size: 30px;
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           NAV LINKS
+        ================================= */
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+        }
+
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           LOGOUT BUTTON
+        ================================= */
+
+        .logout-btn {
+
+            background: #4CAF50;
+
+            color: white !important;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           LOGOUT MODAL
+        ================================= */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 9999;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .modal-box {
+
+            background: white;
+
+            width: 450px;
+
+            max-width: 90%;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.30);
+        }
+
+
+        .modal-icon {
+
+            width: 64px;
+
+            height: 64px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .modal-icon i {
+
+            font-size: 30px;
+
+            color: #4CAF50;
+        }
+
+
+        .modal-box h2 {
+
+            color: #222;
+
+            font-size: 26px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .modal-box p {
+
+            color: #777;
+
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .modal-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+
+        .cancel-modal-btn,
+
+        .confirm-btn {
+
+            width: 100px;
+
+            padding: 12px 10px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+
+        .cancel-modal-btn {
+
+            background: #EEEEEE;
+
+            color: #444;
+        }
+
+
+        .cancel-modal-btn:hover {
+
+            background: #DDDDDD;
+        }
+
+
+        .confirm-btn {
+
+            background: #4CAF50;
+
+            color: white;
+        }
+
+
+        .confirm-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           MAIN CONTAINER
+        ================================= */
+
+        .container {
+
+            width: 86%;
+
+            max-width: 900px;
+
+            margin: 50px auto;
+        }
+
+
+        /* =================================
+           PAGE TITLE
+        ================================= */
+
+        .page-title {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+
+            color: #7BE36B;
+
+            margin-bottom: 8px;
+
+            font-size: 30px;
+        }
+
+
+        .page-title p {
+
+            color: #D7E5DA;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           MAIN CARD
+        ================================= */
+
+        .card {
+
+            background: #FFFFFF;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.25);
+
+            margin-bottom: 25px;
+        }
+
+
+        .card h2 {
+
+            color: #222;
+
+            font-size: 20px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =================================
+           INFORMATION GRID
+        ================================= */
+
+        .info-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .info-box {
+
+            background: #F4FAF5;
+
+            border: 1px solid #D6E5D8;
+
+            border-radius: 10px;
+
+            padding: 20px;
+        }
+
+
+        .info-box h3 {
+
+            color: #666;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .info-box p {
+
+            color: #2E7D32;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        /* =================================
+           DATASET CLASSES
+        ================================= */
+
+        .classes {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+
+        .class-item {
+
+            background: #F4FAF5;
+
+            border-left: 4px solid #4CAF50;
+
+            padding: 12px 14px;
+
+            border-radius: 7px;
+
+            color: #444;
+
+            font-size: 13px;
+        }
+
+
+        /* =================================
+           DATASET SUMMARY
+        ================================= */
+
+        .summary-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+
+        .summary-table th {
+
+            background: #0B3D22;
+
+            color: white;
+
+            text-align: left;
+
+            padding: 13px;
+
+            font-size: 14px;
+        }
+
+
+        .summary-table td {
+
+            padding: 13px;
+
+            border-bottom: 1px solid #EEEEEE;
+
+            color: #555;
+
+            font-size: 14px;
+        }
+
+
+        .summary-table tr:last-child td {
+
+            border-bottom: none;
+        }
+
+
+        /* =================================
+           BUTTONS
+        ================================= */
+
+        .actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+
+        .back-btn,
+
+        .train-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 11px 22px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        /* BACK BUTTON */
+
+        .back-btn {
+
+            background: #EEEEEE;
+
+            color: #444;
+        }
+
+
+        .back-btn:hover {
+
+            background: #DDDDDD;
+        }
+
+
+        /* TRAIN BUTTON */
+
+        .train-btn {
+
+            background: #4CAF50;
+
+            color: white;
+        }
+
+
+        .train-btn:hover {
+
+            background: #2E7D32;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding: 0 4%;
+            }
+
+
+            .nav-links {
+
+                gap: 12px;
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .logo i {
+
+                font-size: 25px;
+            }
+
+
+            .container {
+
+                width: 92%;
+            }
+
+
+            .info-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .classes {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .card {
+
+                padding: 25px;
+            }
+
+
+            .modal-box {
+
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+
+            .modal-box h2 {
+
+                font-size: 24px;
+            }
+
+
+            .actions {
+
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         NAVBAR
+    ================================= -->
+
+    <div class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <div class="nav-links">
+
+
+            <a href="{{ url_for('admin_dashboard') }}">
+
+                Dashboard
+
+            </a>
+
+
+            <a href="{{ url_for('admin_plants') }}">
+
+                Manage Plants
+
+            </a>
+
+
+            <a href="{{ url_for('admin_reports') }}">
+
+                View Reports
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a href="#"
+               class="logout-btn"
+               onclick="openLogoutModal(); return false;">
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         MAIN
+    ================================= -->
+
+    <div class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h1>
+
+                Dataset Details
+
+            </h1>
+
+            <p>
+
+                View dataset information for
+                {{ plant.plant_name }}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================
+             DATASET INFORMATION
+        ================================= -->
+
+        <div class="card">
+
+            <h2>
+
+                Plant Information
+
+            </h2>
+
+
+            <div class="info-grid">
+
+
+                <!-- PLANT ID -->
+
+                <div class="info-box">
+
+                    <h3>
+
+                        Plant ID
+
+                    </h3>
+
+                    <p>
+
+                        {{ plant.plant_id }}
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- PLANT NAME -->
+
+                <div class="info-box">
+
+                    <h3>
+
+                        Plant Name
+
+                    </h3>
+
+                    <p>
+
+                        {{ plant.plant_name }}
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- TOTAL IMAGES -->
+
+                <div class="info-box">
+
+                    <h3>
+
+                        Total Images
+
+                    </h3>
+
+                    <p>
+
+                        {{ total_images }}
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- DATASET CLASSES -->
+
+                <div class="info-box">
+
+                    <h3>
+
+                        Dataset Classes
+
+                    </h3>
+
+                    <p>
+
+                        {{ classes|length }}
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             DATASET SPLIT
+        ================================= -->
+
+        <div class="card">
+
+            <h2>
+
+                Dataset Split
+
+            </h2>
+
+
+            <table class="summary-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+
+                            Dataset
+
+                        </th>
+
+                        <th>
+
+                            Images
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+
+                            Training
+
+                        </td>
+
+                        <td>
+
+                            {{ train_images }}
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            Validation
+
+                        </td>
+
+                        <td>
+
+                            {{ val_images }}
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            Testing
+
+                        </td>
+
+                        <td>
+
+                            {{ test_images }}
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <strong>
+                                Total
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            <strong>
+
+                                {{ total_images }}
+
+                            </strong>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- =================================
+             CLASSES
+        ================================= -->
+
+        <div class="card">
+
+            <h2>
+
+                Dataset Classes
+
+            </h2>
+
+
+            <div class="classes">
+
+
+                {% for class_name in classes %}
+
+
+                    <div class="class-item">
+
+                        {{ class_name }}
+
+                    </div>
+
+
+                {% else %}
+
+
+                    <div class="class-item">
+
+                        No classes found.
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             ACTIONS
+        ================================= -->
+
+        <div class="actions">
+
+
+            <a
+                href="{{ url_for('admin_plants') }}"
+                class="back-btn">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back
+
+            </a>
+
+
+            <a
+                href="{{ url_for('train_model', plant_id=plant.plant_id) }}"
+                class="train-btn">
+
+                <i class="fa-solid fa-brain"></i>
+
+                Train AI Model
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         LOGOUT MODAL
+    ================================= -->
+
+    <div id="logoutModal"
+         class="modal">
+
+
+        <div class="modal-box">
+
+
+            <!-- ICON -->
+
+            <div class="modal-icon">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2>
+
+                Logout Confirmation
+
+            </h2>
+
+
+            <!-- MESSAGE -->
+
+            <p>
+
+                Are you sure you want to logout?
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <button
+                    type="button"
+                    class="cancel-modal-btn"
+                    onclick="closeLogoutModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <a
+                    href="{{ url_for('admin_logout') }}"
+                    class="confirm-btn">
+
+                    Logout
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        function openLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "flex";
+
+        }
+
+
+        function closeLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "none";
+
+        }
+
+
+        window.onclick = function(event) {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+            if (event.target === modal) {
+
+                closeLogoutModal();
+
+            }
+
+        };
+
+    </script>
+
+
+</body>
+
+</html>

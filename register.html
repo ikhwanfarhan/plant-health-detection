@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register - Plant Health Detection System</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            min-height: 100vh;
+
+            background: #071F12;
+
+            color: #222;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 70px;
+
+            background: #05170D;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 3px 12px rgba(0, 0, 0, 0.30);
+
+            border-bottom:
+                1px solid rgba(123, 227, 107, 0.08);
+        }
+
+
+        .logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            color: #ffffff;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .logo i {
+            font-size: 28px;
+
+            color: #7BE36B;
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 30px;
+        }
+
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+
+        .nav-links a:hover {
+            color: #7BE36B;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            min-height:
+                calc(100vh - 70px);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 35px 20px;
+        }
+
+
+        /* =========================
+           REGISTER CARD
+        ========================= */
+
+        .register-card {
+            width: 450px;
+
+            max-width: 100%;
+
+            background: #FFFFFF;
+
+            padding: 40px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.25);
+
+            border:
+                1px solid #E1ECE2;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            text-align: center;
+
+            margin-bottom: 27px;
+        }
+
+
+        .leaf-icon {
+            width: 65px;
+
+            height: 65px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .leaf-icon i {
+            color: #2E7D32;
+
+            font-size: 29px;
+        }
+
+
+        .header h2 {
+            color: #1B5E20;
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           FLASH MESSAGE
+        ========================= */
+
+        .message {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: #FFF8E1;
+
+            color: #795900;
+
+            border:
+                1px solid #E6D48A;
+
+            padding: 11px 13px;
+
+            margin-bottom: 19px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            line-height: 1.4;
+        }
+
+
+        .message i {
+            font-size: 16px;
+
+            color: #C49A00;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #333;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+
+        .input-wrapper {
+            position: relative;
+        }
+
+
+        .input-wrapper i {
+            position: absolute;
+
+            left: 14px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #6B8B72;
+
+            font-size: 16px;
+        }
+
+
+        input {
+            width: 100%;
+
+            padding:
+                14px 14px 14px 43px;
+
+            border:
+                1px solid #CBDACD;
+
+            border-radius: 9px;
+
+            outline: none;
+
+            background: #F8FBF8;
+
+            color: #222;
+
+            font-size: 15px;
+
+            transition: 0.2s ease;
+        }
+
+
+        input::placeholder {
+            color: #8A9A8E;
+        }
+
+
+        input:focus {
+            border-color: #4CAF50;
+
+            background: #FFFFFF;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(76, 175, 80, 0.12);
+        }
+
+
+        /* =========================
+           REGISTER BUTTON
+        ========================= */
+
+        .register-btn {
+            width: 100%;
+
+            border: none;
+
+            padding: 14px 16px;
+
+            margin-top: 6px;
+
+            background: #4CAF50;
+
+            color: white;
+
+            border-radius: 9px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            transition: 0.2s ease;
+
+            box-shadow:
+                0 5px 12px
+                rgba(76, 175, 80, 0.20);
+        }
+
+
+        .register-btn:hover {
+            background: #2E7D32;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .register-btn:active {
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .links {
+            text-align: center;
+
+            margin-top: 23px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid #E1E9E2;
+
+            font-size: 14px;
+
+            color: #666;
+        }
+
+
+        .links a {
+            color: #2E7D32;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            transition: 0.2s ease;
+        }
+
+
+        .links a:hover {
+            color: #1B5E20;
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+
+            .logo {
+                font-size: 17px;
+            }
+
+
+            .logo i {
+                font-size: 22px;
+            }
+
+
+            .nav-links {
+                gap: 18px;
+            }
+
+
+            .nav-links a {
+                font-size: 14px;
+            }
+
+
+            .main {
+                padding: 25px 15px;
+            }
+
+
+            .register-card {
+                padding: 34px 25px;
+            }
+
+
+            .header h2 {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <div class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+
+            <a href="{{ url_for('about') }}">
+                About
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="main">
+
+
+        <div class="register-card">
+
+
+            <!-- =========================
+                 HEADER
+            ========================= -->
+
+            <div class="header">
+
+
+                <div class="leaf-icon">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                </div>
+
+
+                <h2>
+                    Create Account
+                </h2>
+
+
+                <p>
+                    Register to start analyzing plant health
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =========================
+                 FLASH MESSAGES
+            ========================= -->
+
+            {% with messages =
+                get_flashed_messages(with_categories=true)
+            %}
+
+                {% for category, message in messages %}
+
+                    <div class="message">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                        <span>
+                            {{ message }}
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endwith %}
+
+
+
+            <!-- =========================
+                 REGISTRATION FORM
+            ========================= -->
+
+            <form method="POST">
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-user"></i>
+
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your full name"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirm_password">
+                        Confirm Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock"></i>
+
+
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            name="confirm_password"
+                            placeholder="Confirm your password"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- REGISTER BUTTON -->
+
+                <button
+                    class="register-btn"
+                    type="submit">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    <span>
+                        Register
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- =========================
+                 LOGIN LINK
+            ========================= -->
+
+            <div class="links">
+
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

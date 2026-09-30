@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Plants</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =================================
+           BODY
+        ================================= */
+
+        body {
+
+            min-height: 100vh;
+
+            background: #071F12;
+
+            color: white;
+        }
+
+
+        /* =================================
+           NAVBAR
+        ================================= */
+
+        .navbar {
+
+            height: 70px;
+
+            background: #05170D;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 0 7%;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+
+
+        /* LOGO */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: white;
+
+            font-size: 21px;
+
+            font-weight: bold;
+        }
+
+
+        .logo i {
+
+            font-size: 30px;
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           NAV LINKS
+        ================================= */
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+        }
+
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .nav-links a:hover,
+
+        .nav-links .active {
+
+            color: #7BE36B;
+        }
+
+
+        /* =================================
+           LOGOUT BUTTON
+        ================================= */
+
+        .logout-btn {
+
+            background: #4CAF50;
+
+            color: white !important;
+
+            padding: 10px 18px;
+
+            border-radius: 7px;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           LOGOUT MODAL
+        ================================= */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 9999;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .modal-box {
+
+            background: white;
+
+            width: 450px;
+
+            max-width: 90%;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.30);
+        }
+
+
+        .modal-icon {
+
+            width: 64px;
+
+            height: 64px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            background: #E8F5E9;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+
+        .modal-icon i {
+
+            font-size: 30px;
+
+            color: #4CAF50;
+        }
+
+
+        .modal-box h2 {
+
+            color: #222;
+
+            font-size: 26px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .modal-box p {
+
+            color: #777;
+
+            font-size: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .modal-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+
+        .cancel-btn,
+
+        .confirm-btn {
+
+            width: 100px;
+
+            padding: 12px 10px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            border: none;
+        }
+
+
+        .cancel-btn {
+
+            background: #EEEEEE;
+
+            color: #444;
+        }
+
+
+        .cancel-btn:hover {
+
+            background: #DDDDDD;
+        }
+
+
+        .confirm-btn {
+
+            background: #4CAF50;
+
+            color: white;
+        }
+
+
+        .confirm-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           MAIN
+        ================================= */
+
+        .container {
+
+            width: 86%;
+
+            max-width: 1100px;
+
+            margin: 50px auto;
+        }
+
+
+        /* =================================
+           PAGE TITLE
+        ================================= */
+
+        .page-title {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-title h1 {
+
+            color: #7BE36B;
+
+            margin-bottom: 8px;
+
+            font-size: 34px;
+        }
+
+
+        .page-title p {
+
+            color: #D7E5DA;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================
+           CARD
+        ================================= */
+
+        .plant-card {
+
+            background: #FFFFFF;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.25);
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =================================
+           SEARCH
+        ================================= */
+
+        .search-form {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .search-form input {
+
+            flex: 1;
+
+            padding: 12px 15px;
+
+            border: 1px solid #D6E5D8;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            color: #333;
+
+            background: white;
+        }
+
+
+        .search-form input:focus {
+
+            border-color: #4CAF50;
+
+            box-shadow:
+                0 0 0 3px rgba(76,175,80,0.10);
+        }
+
+
+        .search-btn {
+
+            border: none;
+
+            background: #4CAF50;
+
+            color: white;
+
+            padding: 11px 22px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .search-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           RESET
+        ================================= */
+
+        .reset-btn {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            background: #EEEEEE;
+
+            color: #444;
+
+            font-size: 14px;
+        }
+
+
+        .reset-btn:hover {
+
+            background: #DDDDDD;
+        }
+
+
+        /* =================================
+           ADD NEW PLANT
+        ================================= */
+
+        .add-btn {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            background: #4CAF50;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        .add-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           TABLE
+        ================================= */
+
+        .table-container {
+
+            overflow-x: auto;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 750px;
+        }
+
+
+        th {
+
+            background: #0B3D22;
+
+            color: white;
+
+            text-align: left;
+
+            padding: 15px;
+
+            font-size: 14px;
+        }
+
+
+        th:last-child {
+
+            text-align: center;
+        }
+
+
+        td {
+
+            padding: 15px;
+
+            border-bottom: 1px solid #EEEEEE;
+
+            color: #444;
+
+            font-size: 14px;
+        }
+
+
+        tr:hover td {
+
+            background: #F8FCF8;
+        }
+
+
+        .plant-name {
+
+            color: #2E7D32;
+
+            font-weight: bold;
+        }
+
+
+        /* =================================
+           DATASET STATUS
+        ================================= */
+
+        .dataset-status {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            background: #E8F5E9;
+
+            color: #2E7D32;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* =================================
+           ACTION BUTTONS
+        ================================= */
+
+        .action-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+        }
+
+
+        .icon-btn {
+
+            position: relative;
+
+            width: 38px;
+
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            color: white;
+
+            transition: 0.2s ease;
+        }
+
+
+        .icon-btn:hover {
+
+            transform: translateY(-2px);
+        }
+
+
+        /* DATASET DETAILS */
+
+        .details-btn {
+
+            background: #607D8B;
+        }
+
+
+        .details-btn:hover {
+
+            background: #455A64;
+        }
+
+
+        /* EDIT */
+
+        .edit-btn {
+
+            background: #4CAF50;
+        }
+
+
+        .edit-btn:hover {
+
+            background: #2E7D32;
+        }
+
+
+        /* =================================
+           TOOLTIP
+        ================================= */
+
+        .icon-btn::after {
+
+            content: attr(data-tooltip);
+
+            position: absolute;
+
+            bottom: -38px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            background: #222;
+
+            color: white;
+
+            padding: 7px 10px;
+
+            border-radius: 6px;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition: 0.2s ease;
+
+            z-index: 100;
+        }
+
+
+        .icon-btn:hover::after {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        /* =================================
+           NO PLANT
+        ================================= */
+
+        .no-plant {
+
+            text-align: center;
+
+            padding: 35px;
+
+            color: #888;
+        }
+
+
+        /* =================================
+           INFO BOX
+        ================================= */
+
+        .info-card {
+
+            background: #E8F5E9;
+
+            border-left: 5px solid #4CAF50;
+
+            padding: 20px;
+
+            border-radius: 10px;
+        }
+
+
+        .info-card h3 {
+
+            color: #2E7D32;
+
+            margin-bottom: 8px;
+
+            font-size: 16px;
+        }
+
+
+        .info-card p {
+
+            color: #555;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+
+                padding: 0 4%;
+            }
+
+
+            .nav-links {
+
+                gap: 12px;
+            }
+
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .logo i {
+
+                font-size: 25px;
+            }
+
+
+            .container {
+
+                width: 92%;
+
+                margin: 35px auto;
+            }
+
+
+            .page-title h1 {
+
+                font-size: 28px;
+            }
+
+
+            .search-form {
+
+                flex-direction: column;
+            }
+
+
+            .search-btn,
+
+            .reset-btn,
+
+            .add-btn {
+
+                width: 100%;
+            }
+
+
+            .action-buttons {
+
+                flex-direction: row;
+            }
+
+
+            .modal-box {
+
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+
+
+            .modal-box h2 {
+
+                font-size: 24px;
+            }
+
+
+            .modal-box p {
+
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         NAVBAR
+    ================================= -->
+
+    <div class="navbar">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <i class="fa-solid fa-leaf"></i>
+
+            <span>
+                Plant Health Detection
+            </span>
+
+        </div>
+
+
+
+        <!-- NAV LINKS -->
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('admin_dashboard') }}">
+
+                Dashboard
+
+            </a>
+
+
+            <a href="{{ url_for('admin_plants') }}"
+               class="active">
+
+                Manage Plants
+
+            </a>
+
+
+            <a href="{{ url_for('admin_reports') }}">
+
+                View Reports
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a href="#"
+               class="logout-btn"
+               onclick="openLogoutModal(); return false;">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         MAIN
+    ================================= -->
+
+    <div class="container">
+
+
+        <!-- PAGE TITLE -->
+
+        <div class="page-title">
+
+            <h1>
+
+                Manage Plants
+
+            </h1>
+
+            <p>
+
+                Manage plant datasets and machine learning model training.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PLANT CARD -->
+
+        <div class="plant-card">
+
+
+            <!-- SEARCH -->
+
+            <form method="GET"
+                  action="{{ url_for('admin_plants') }}"
+                  class="search-form">
+
+
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search plant..."
+                    value="{{ search }}"
+                >
+
+
+                <button
+                    type="submit"
+                    class="search-btn">
+
+                    Search
+
+                </button>
+
+
+                <a
+                    href="{{ url_for('admin_plants') }}"
+                    class="reset-btn">
+
+                    Reset
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('add_dataset') }}"
+                    class="add-btn">
+
+                    + Add New Plant
+
+                </a>
+
+
+            </form>
+
+
+
+            <!-- TABLE -->
+
+            <div class="table-container">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Plant ID
+                            </th>
+
+                            <th>
+                                Plant Name
+                            </th>
+
+                            <th>
+                                Description
+                            </th>
+
+                            <th>
+                                Dataset
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                        {% for plant in plants %}
+
+
+                        <tr>
+
+
+                            <td>
+
+                                {{ plant.plant_id }}
+
+                            </td>
+
+
+                            <td class="plant-name">
+
+                                {{ plant.plant_name }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ plant.description }}
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="dataset-status">
+
+                                    Ready
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+
+                                <div class="action-buttons">
+
+
+                                    <!-- DATASET DETAILS -->
+
+                                    <a
+                                        href="{{ url_for('dataset_details', plant_id=plant.plant_id) }}"
+                                        class="icon-btn details-btn"
+                                        data-tooltip="Dataset Details">
+
+                                        <i class="fa-solid fa-database"></i>
+
+                                    </a>
+
+
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        href="{{ url_for('edit_plant', plant_id=plant.plant_id) }}"
+                                        class="icon-btn edit-btn"
+                                        data-tooltip="Edit Plant">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+
+                                </div>
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% else %}
+
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="no-plant">
+
+                                No plants found.
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             INFORMATION
+        ================================= -->
+
+        <div class="info-card">
+
+
+            <h3>
+
+                Dataset Management
+
+            </h3>
+
+
+            <p>
+
+                Use the Add New Plant section to add a new plant
+                or update the dataset of an existing plant.
+                Dataset upload and model training can be managed
+                from that section.
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================
+         LOGOUT CONFIRMATION MODAL
+    ================================= -->
+
+    <div id="logoutModal" class="modal">
+
+
+        <div class="modal-box">
+
+
+            <!-- LOGOUT ICON -->
+
+            <div class="modal-icon">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2>
+
+                Logout Confirmation
+
+            </h2>
+
+
+            <!-- MESSAGE -->
+
+            <p>
+
+                Are you sure you want to logout?
+
+            </p>
+
+
+            <!-- BUTTONS -->
+
+            <div class="modal-buttons">
+
+
+                <!-- CANCEL -->
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeLogoutModal()">
+
+                    Cancel
+
+                </button>
+
+
+                <!-- LOGOUT -->
+
+                <a
+                    href="{{ url_for('admin_logout') }}"
+                    class="confirm-btn">
+
+                    Logout
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        function openLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "flex";
+
+        }
+
+
+        function closeLogoutModal() {
+
+            document.getElementById("logoutModal").style.display = "none";
+
+        }
+
+
+        /* CLOSE WHEN CLICK OUTSIDE */
+
+        window.onclick = function(event) {
+
+            const modal =
+                document.getElementById("logoutModal");
+
+            if (event.target === modal) {
+
+                closeLogoutModal();
+
+            }
+
+        };
+
+    </script>
+
+
+</body>
+
+</html>
